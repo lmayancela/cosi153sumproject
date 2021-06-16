@@ -9,7 +9,7 @@ import {
   ReminderList,
   UserDetails,
   Splash
-} from './Screens';
+} from './screens/index';
 
 const Tabs = createBottomTabNavigator();
 const MainStack = createStackNavigator();
