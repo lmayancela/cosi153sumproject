@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 
-export default Main = ({ navigation }) => { // navigation is the stack navigator sent from App.js
+const Main = ({ navigation }) => { // navigation is the stack navigator sent from App.js
   return (
     <ScreenContainer>
       <Text>
@@ -32,3 +32,5 @@ export default Main = ({ navigation }) => { // navigation is the stack navigator
     </ScreenContainer>
   );
 }
+
+export default Main;

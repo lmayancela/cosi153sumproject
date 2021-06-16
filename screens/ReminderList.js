@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 
-export default ReminderList = ({ navigation }) => {
+const ReminderList = ({ navigation }) => {
   return (
     <ScreenContainer>
       <Text>All Reminders</Text>
@@ -14,3 +14,5 @@ export default ReminderList = ({ navigation }) => {
     </ScreenContainer>
   )
 }
+
+export default ReminderList;
