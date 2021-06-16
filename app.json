@@ -2,13 +2,13 @@
   "expo": {
     "name": "BotherMe",
     "slug": "BotherMe",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./public/icon.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./public/splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffeeff"
+      "backgroundColor": "#ffffff"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -21,12 +21,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./public/adaptive-icon.png",
-        "backgroundColor": "#EEEEFF"
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./public/favicon.png"
+      "favicon": "./assets/favicon.png"
     }
   }
 }
