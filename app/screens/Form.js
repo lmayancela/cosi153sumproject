@@ -2,14 +2,17 @@ import React, { useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const Form = (props) => {
+import styles from '../config/styles';
+
+// This name will probably need changing later
+const Form = (props) => {
   const [info, setInfo] = useState({ username: "", notiTypes: "", notiFreq: "", task: { name: "", dueDate: "", notes: "" } });
   const [username, setUsername] = useState("");
   const [taskName, setTaskName] = useState([]); //concat onto list, have the option to add more at a time later
   const [taskDueDate, setTaskDueDate] = useState(); //blank date?
   const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
   const [notificationFrequency, setNotificationFrequency] = useState("");
-  const [taskName, setTaskName] = useState("");
+  // const [taskName, setTaskName] = useState("");  REPEAT of line 9
 
   return (
     <View>
@@ -61,6 +64,7 @@ export const Form = (props) => {
         />
       </View>
 
+      {/* // this button is buggy since taskNotes isn't defined */}
       <Button
         title="submit"
         onPress={() => {
@@ -73,3 +77,5 @@ export const Form = (props) => {
       />
       </View>
 )}
+
+export default Form;

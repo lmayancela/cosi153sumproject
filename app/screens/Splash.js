@@ -8,7 +8,7 @@ const Splash = () => {
     <ScreenContainer>
       <Text>Loading</Text>
     </ScreenContainer>
-  )
+  );
 }
 
 export default Splash;
