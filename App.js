@@ -8,7 +8,8 @@ import {
   CreateReminder,
   ReminderList,
   UserDetails,
-  Splash
+  Splash,
+  SendEmail
 } from './screens/index';
 
 const Tabs = createBottomTabNavigator();
@@ -18,7 +19,7 @@ const ProfileStack = createStackNavigator();
 const MainStackScreen = () => (
   <MainStack.Navigator>
     <MainStack.Screen name='Main' component={Main} options={{
-      title: "Main Screen"
+      title: "BotherMe"
     }}/>
     <MainStack.Screen name='CreateReminder' component={CreateReminder} options={({ route }) => ({
       title: route.params.name,
@@ -48,6 +49,7 @@ const TabsScreen = () => (
   <Tabs.Navigator>
     <Tabs.Screen name='Main' component={MainStackScreen} />
     <Tabs.Screen name='Profile' component={ProfileStackScreen} />
+    <Tabs.Screen name='Email' component={SendEmail} />
   </Tabs.Navigator>
 );
 

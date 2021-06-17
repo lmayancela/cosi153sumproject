@@ -5,3 +5,4 @@ export { default as CreateReminder } from './CreateReminder';
 export { default as ReminderList } from './ReminderList';
 export { default as UserDetails } from './UserDetails';
 export { default as Splash } from './Splash';
+export { default as SendEmail } from './SendEmail';
