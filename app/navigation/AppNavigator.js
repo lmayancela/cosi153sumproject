@@ -10,9 +10,9 @@ const Tabs = createBottomTabNavigator();
 
 //to be exported
 const AppNavigator = () => {
-  useEffect(() => {
-    registerForPushNotifications();
-  }, [])
+//   useEffect(() => {
+//     registerForPushNotifications();
+//   }, [])
 
   // const registerForPushNotifications = async () => { 
   //   try {
