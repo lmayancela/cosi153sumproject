@@ -28,6 +28,13 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
               name: "List of All Reminders Screen"
             })}
         />
+        <Button
+          title="Lisandro's Send Email yeet"
+          onPress={() =>
+            navigation.push("SendEmail", {
+              name: "Remember that you have a limited number of emails left"
+            })}
+        />
       </View>
     </ScreenContainer>
   );

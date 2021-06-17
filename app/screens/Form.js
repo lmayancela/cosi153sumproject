@@ -75,7 +75,8 @@ const Form = (props) => {
 
         }}
       />
-      </View>
-)}
+    </View>
+  )
+}
 
 export default Form;
