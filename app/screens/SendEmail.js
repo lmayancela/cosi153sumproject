@@ -1,9 +1,13 @@
 import React, { useState } from "react";
-import { View, StyleSheet, FlatList, Text, Button, TextInput } from 'react-native';
+import {
+  Text,
+  Button,
+  TextInput
+} from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 import emailjs from 'emailjs-com';
 emailjs.init("user_GjmuzdP6EsNTAhMiM9BPq")
-import serialportgsm from 'serialport-gsm';
+// import serialportgsm from 'serialport-gsm';
 
 const SendEmail = ({ navigation }) => {
   const [email, setEmail] = useState("")
@@ -29,11 +33,11 @@ const SendEmail = ({ navigation }) => {
       });
   }
 
-  function sendText() {
-    serialportgsm.list((err, result) => {
-      console.log(result)
-    })
-  }
+  // function sendText() {
+  //   serialportgsm.list((err, result) => {
+  //     console.log(result)
+  //   })
+  // }
 
   return (
     <ScreenContainer>
@@ -49,10 +53,10 @@ const SendEmail = ({ navigation }) => {
         color='red' title='Send Email'
         onPress={() => sendEmail()}
       />
-      <Button
+      {/* <Button
         color='blue' title='Send Text'
         onPress={() => sendText()}
-      />
+      /> */}
     </ScreenContainer>
   )
 }
