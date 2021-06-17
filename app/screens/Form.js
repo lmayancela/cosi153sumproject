@@ -64,7 +64,7 @@ const Form = (props) => {
         />
       </View>
 
-      {/* // this button is buggy since taskNotes isn't defined */}
+      {/* // this button is buggy since taskNotes isn't yet defined */}
       <Button
         title="submit"
         onPress={() => {
