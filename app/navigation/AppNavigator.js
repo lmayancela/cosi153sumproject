@@ -2,10 +2,8 @@ import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Notifications } from 'expo';
-// import * as Permissions from 'expo-permissions'
 
 import MainNavigator from './MainNavigator';
-// import expoPushTokensApi from '../api/expoPushTokens';
 import ProfileNavigator from './ProfileNavigator';
 
 const Tabs = createBottomTabNavigator();
@@ -16,17 +14,17 @@ const AppNavigator = () => {
     registerForPushNotifications();
   }, [])
 
-  const registerForPushNotifications = async () => { 
-    try {
-       const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
-       if (!permission.granted) return;
+  // const registerForPushNotifications = async () => { 
+  //   try {
+  //      const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+  //      if (!permission.granted) return;
 
-       const token = await Notifications.getExpoPushTokenAsync();
-       console.log(token);
-    } catch (error) {
-      console.log('Error getting a token', error);
-    }
-  }
+  //      const token = await Notifications.getExpoPushTokenAsync();
+  //      console.log(token);
+  //   } catch (error) {
+  //     console.log('Error getting a token', error);
+  //   }
+  // }
 
   return (
     <Tabs.Navigator>
