@@ -12,7 +12,7 @@ const ReminderList = ({ navigation }) => {
       <Text>All Reminders</Text>
       <Button title="This button does nothing" />
     </ScreenContainer>
-  )
+  );
 }
 
 export default ReminderList;

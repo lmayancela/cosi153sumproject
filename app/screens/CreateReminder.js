@@ -8,7 +8,7 @@ const CreateReminder = ({ navigation }) => {
     <ScreenContainer>
       <Text>Create a Reminder</Text>
     </ScreenContainer>
-  )
+  );
 }
 
 export default CreateReminder;
