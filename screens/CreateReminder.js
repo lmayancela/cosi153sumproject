@@ -2,6 +2,17 @@
 import React from 'react';
 import { Text } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+export const Form = (props) => {
+  const [info, setInfo] = useState({ username: "", notiTypes: "", notiFreq: "", task: { name: "", dueDate: "", notes: "" } });
+  const [username, setUsername] = useState("");
+  const [taskName, setTaskName] = useState([]); //concat onto list, have the option to add more at a time later
+  const [taskDueDate, setTaskDueDate] = useState(); //blank date?
+  const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
+  const [notificationFrequency, setNotificationFrequency] = useState("");
+  const [taskName, setTaskName] = useState("");
+  const [task, setTask] = useState(const [taskName, setTaskName] = useState(""));
 
 const CreateReminder = ({ navigation }) => {
   return (
@@ -47,7 +58,7 @@ const CreateReminder = ({ navigation }) => {
         />
       </View>
     </ScreenContainer>
-  );
+  )
 }
 
 export default CreateReminder;
