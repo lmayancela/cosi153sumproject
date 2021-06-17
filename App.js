@@ -1,68 +1,10 @@
 import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Splash } from './app/screens';
+import AppNavigator from './app/navigation/AppNavigator';
 
-import {
-  Main,
-  CreateReminder,
-  ReminderList,
-  UserDetails,
-  Splash,
-  SendEmail
-} from './screens/index';
-
-const Tabs = createBottomTabNavigator();
-const MainStack = createStackNavigator();
-const ProfileStack = createStackNavigator();
-
-const MainStackScreen = () => (
-  <MainStack.Navigator>
-    <MainStack.Screen name='Main' component={Main} options={{
-      title: "BotherMe"
-    }}/>
-    <MainStack.Screen name='CreateReminder' component={CreateReminder} options={({ route }) => ({
-      title: route.params.name,
-      user: 'FILL_LATER'
-    })}
-    />
-    <MainStack.Screen name='ReminderList' component={ReminderList} options={({ route }) => ({
-      title: route.params.name,
-      user: 'FILL_LATER'
-    })}
-    />
-
-  </MainStack.Navigator>
-);
-// TODO should send authenticated user name as an option in above screen props
-
-// Log out should go here as well
-const ProfileStackScreen = () => (
-  <ProfileStack.Navigator>
-    <ProfileStack.Screen name='View Account Details' component={UserDetails} />
-
-  </ProfileStack.Navigator>
-);
-
-
-const TabsScreen = () => (
-  <Tabs.Navigator>
-    <Tabs.Screen name='Main' component={MainStackScreen} />
-    <Tabs.Screen name='Profile' component={ProfileStackScreen} />
-    <Tabs.Screen name='Email' component={SendEmail} />
-  </Tabs.Navigator>
-);
-
-const RootStack = createStackNavigator();
-// headerMode='none'
-const RootStackScreen = () => (
-  <RootStack.Navigator>
-    <RootStack.Screen name='BotherMe' component={TabsScreen} />
-  </RootStack.Navigator>
-);
-
-export default () => {
-  const [isLoading, setIsLoading] = useState(true); // TODO will be used for auth purposes
+const App = () => {
+  const [isLoading, setIsLoading] = useState(true); // TODO will be used for auth purposes...maybe not?
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -74,10 +16,12 @@ export default () => {
     return <Splash />;
   }
 
+  // Add theme prop to NavigationContainer later
   return (
     <NavigationContainer>
-      {/* <RootStackScreen /> */}
-      <TabsScreen />
+      <AppNavigator />
     </NavigationContainer>
   );
 }
+
+export default App;
