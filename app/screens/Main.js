@@ -11,7 +11,7 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
   return (
     <ScreenContainer>
       <Text>
-        This is the main screen. This will be the first thing that the user sees after they log in.
+        Testing : This is the main screen. This will be the first thing that the user sees after they log in.
       </Text>
       <View>
         <Button
