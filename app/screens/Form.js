@@ -43,7 +43,7 @@ const Form = (props) => {
       <View style={styles.rowContainer}>
         <Text>When should your task be done by?</Text>
 
-        {// line 49 means that the stuff in the brackets will only be shown when showDatePicker == true
+        {// line 50 means that the stuff in the brackets will only be shown when showDatePicker == true
         // (default is false)
         // Also this only works on mobile.
         }
@@ -66,7 +66,7 @@ const Form = (props) => {
         </View>
         )}
         {
-          // Web specific date input
+          // Web specific date input (Just a text box)
         }
         {(Platform.OS === 'web') && (
           <View>
@@ -81,11 +81,16 @@ const Form = (props) => {
 
       <View style={styles.rowContainer}>
         <Text>How would you like to be notified?</Text>
-        <TextInput
-          style={styles.textinput}
-          onChangeText={text => { setNotificationType(text) }}
-          value={null} //tbh dont know the purpose of this line //NR: added null just to avoid compilation errors
-        />
+        <Picker
+         selectedValue={notificationType}
+         style={{ height: 50, width: 150 }}
+         onValueChange={(itemValue, itemIndex) => setNotificationType(itemValue)}>
+          <Picker.Item label=" " value="" />
+          <Picker.Item label="Email" value="email" />
+          <Picker.Item label="Twitter" value="twitter" />
+          <Picker.Item label="Mariachi Band" value="mariachi" />
+        </Picker>
+
       </View>
       <View style={styles.rowContainer}>
         <Text>How often would you like to be notified?</Text>
