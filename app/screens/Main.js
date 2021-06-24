@@ -12,6 +12,7 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
   return (
 
     <ScreenContainer>
+
       <View style={styles.screenContainer}>
 
         <View style={{ width: '80%', justifyContent: 'center', alignItems: 'center' }}>
@@ -44,6 +45,7 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
           })} />
 
         </View>
+
       </View>
     </ScreenContainer>
 

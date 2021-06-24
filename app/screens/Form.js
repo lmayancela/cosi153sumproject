@@ -91,8 +91,22 @@ const Form = (props) => {
           />
           </View>
 
-        </View>
-      </View>
-)}
+
+      {/* // this button is buggy since taskNotes isn't yet defined */}
+      <Button
+        title="submit"
+        onPress={() => {
+          //NR: these constants weren't defined before...should probably define them at top of tile and then re-assign their value here
+          const theTask = { taskName, taskDueDate, taskNotes } //i think i coud do these to lines in one but mybe this is cleaerer
+          //get task list from database to append
+          const theInfo = { username, notificationFrequency, notificationType, theTask }
+          console.log(theTask);
+          console.log(theInfo);
+        }}
+      />
+    </View>
+  )
+}
+
 
 export default Form;
