@@ -121,7 +121,8 @@ const Form = (props) => {
           console.log(theInfo);
         }}
       />
-      </View>
-)}
+    </View>
+  )
+}
 
 export default Form;
