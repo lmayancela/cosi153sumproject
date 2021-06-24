@@ -25,6 +25,7 @@
     "path": "^0.12.7",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-live-clock": "^5.2.0",
     "react-native": "0.63",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-safe-area-context": "^3.2.0",
@@ -33,7 +34,8 @@
     "react-navigation": "^4.4.4",
     "serialport-gsm": "^3.4.1",
     "stream": "^0.0.2",
-    "stream-js": "^0.5.1"
+    "stream-js": "^0.5.1",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"
