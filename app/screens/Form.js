@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View, Picker, Platform } from "rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
+import { ScreenContainer } from '../components/ScreenContainer';
 import styles from '../config/styles';
 
 // This name will probably need changing later
@@ -25,7 +26,7 @@ const Form = (props) => {
   const buttonColor = '#00FF00';
 
   return (
-    <View style={styles.screenContainer}>
+    <ScreenContainer>
       <View style={styles.screenButtonContainer}>
 
         <View>
@@ -89,24 +90,24 @@ const Form = (props) => {
 
             }}
           />
-          </View>
+        </View>
 
 
-      {/* // this button is buggy since taskNotes isn't yet defined */}
-      <Button
-        title="submit"
-        onPress={() => {
-          //NR: these constants weren't defined before...should probably define them at top of tile and then re-assign their value here
-          const theTask = { taskName, taskDueDate, taskNotes } //i think i coud do these to lines in one but mybe this is cleaerer
-          //get task list from database to append
-          const theInfo = { username, notificationFrequency, notificationType, theTask }
-          console.log(theTask);
-          console.log(theInfo);
-        }}
-      />
-    </View>
-  )
-}
+        {/* // this button is buggy since taskNotes isn't yet defined */}
+        <Button
+          title="submit"
+          onPress={() => {
+            //NR: these constants weren't defined before...should probably define them at top of tile and then re-assign their value here
+            const theTask = { taskName, taskDueDate, taskNotes } //i think i coud do these to lines in one but mybe this is cleaerer
+            //get task list from database to append
+            const theInfo = { username, notificationFrequency, notificationType, theTask }
+            console.log(theTask);
+            console.log(theInfo);
+          }}
+        />
+      </View>
+    </ScreenContainer>
+  )}
 
 
 export default Form;
