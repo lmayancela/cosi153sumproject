@@ -18,6 +18,30 @@ const styles = StyleSheet.create({
   screenButtonContainer: {
     width: '40%',
     height: 'auto'
+  },
+  rowContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  textinput: {
+    backgroundColor:'orange'
+  },
+  logoText: {
+    color: 'white',
+    fontSize: '55px'
+  },
+  statement: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '18px'
+  },
+  subStatement: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '16px'
   }
 });
 

@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, Text, View } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 import styles from '../config/styles';
+import Form from './Form'
 
 const CreateReminder = ({ navigation }) => {
 
@@ -17,6 +18,9 @@ const CreateReminder = ({ navigation }) => {
 
         </View>
       </View>
+      
+      <Text>Create a Reminder</Text>
+      <Form></Form>
     </ScreenContainer>
   );
 }

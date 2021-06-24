@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, StyleSheet, Text, TextInput, View, Picker, Platform } from "react-native";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 import styles from '../config/styles';
 
@@ -8,11 +9,18 @@ import styles from '../config/styles';
 const Form = (props) => {
   const [info, setInfo] = useState({ username: "", notiTypes: "", notiFreq: "", task: { name: "", dueDate: "", notes: "" } });
   const [username, setUsername] = useState("");
+  const [taskNotes, setTaskNotes] = useState("");
   const [taskName, setTaskName] = useState([]); //concat onto list, have the option to add more at a time later
-  const [taskDueDate, setTaskDueDate] = useState(); //blank date?
+  const [taskDueDate, setTaskDueDate] = useState(new Date(Date.now())); // new Date object that is today
+  const [datePickerMode, setDatePickerMode] = useState('date'); // Used for date picker mode, time or date
+  const [showDatePicker, setShowDatePicker] = useState(false); // If date picker is shown or not.
   const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
   const [notificationFrequency, setNotificationFrequency] = useState("");
-  // const [taskName, setTaskName] = useState("");  REPEAT of line 9
+
+  // holds the task just in case i guess
+  var task
+
+  console.log(Platform.OS)
 
   const buttonColor = '#00FF00';
 
