@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 
-const Main = ({ navigation }) => { // navigation is the stack navigator sent from App.js
+const Main = ({ navigation }) => { // navigation is the stack navigator sent from AppNavigator.js
   return (
     <ScreenContainer>
       <Text>
@@ -26,6 +26,13 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
           onPress={() =>
             navigation.push("ReminderList", {
               name: "List of All Reminders Screen"
+            })}
+        />
+        <Button
+          title="Send a Notification"
+          onPress={() =>
+            navigation.push("NotificationTest", {
+              name: "Notification Test Screen"
             })}
         />
       </View>
