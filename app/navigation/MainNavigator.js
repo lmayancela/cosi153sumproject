@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from "@react-navigation/stack";
-
+import styles from '../config/styles';
 import {
   Main,
   CreateReminder,
@@ -10,7 +10,7 @@ import {
 const Stack = createStackNavigator();
 
 const MainNavigator = () => (
-  <Stack.Navigator>
+  <Stack.Navigator style={styles.screenbackground}>
     <Stack.Screen name='Main' component={Main} options={{
       title: "Main Screen"
     }}/>
