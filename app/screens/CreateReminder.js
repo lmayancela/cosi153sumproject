@@ -3,7 +3,11 @@ import React, {useState, useEffect} from 'react';
 import { SafeAreaView, ScrollView, View, Button,
          FlatList, StyleSheet, Text, TextInput, StatusBar } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
+<<<<<<< HEAD
 import AsyncStorage from '@react-native-async-storage/async-storage';
+=======
+import Form from './Form'
+>>>>>>> main
 
 //Notes:
 //cant scrool down in browser (text can get cut off)
@@ -75,6 +79,7 @@ const CreateReminder = ({ navigation }) => {
 
   return (
     <ScreenContainer>
+<<<<<<< HEAD
     <ScrollView>
       <Text style={styles.headerText}>Create a Reminder</Text>
       <Text> </Text>
@@ -168,10 +173,15 @@ const CreateReminder = ({ navigation }) => {
        todoItems is {JSON.stringify(taskList)}
        </Text>
       </ScrollView>
+=======
+      <Text>Create a Reminder</Text>
+      <Form></Form>
+>>>>>>> main
     </ScreenContainer>
   );
 }
 
+<<<<<<< HEAD
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -196,4 +206,6 @@ const styles = StyleSheet.create({
 
 });
 
+=======
+>>>>>>> main
 export default CreateReminder;
