@@ -8,6 +8,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  screenContainer: {
+    backgroundColor: '#404040',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  screenButtonContainer: {
+    width: '40%',
+    height: 'auto'
+  },
   rowContainer: {
     flex: 1,
     backgroundColor: '#fff',
@@ -17,6 +28,20 @@ const styles = StyleSheet.create({
   },
   textinput: {
     backgroundColor:'orange'
+  },
+  logoText: {
+    color: 'white',
+    fontSize: '55px'
+  },
+  statement: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '18px'
+  },
+  subStatement: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: '16px'
   }
 });
 

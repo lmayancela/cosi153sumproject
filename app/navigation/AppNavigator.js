@@ -14,7 +14,7 @@ const AppNavigator = () => {
 //     registerForPushNotifications();
 //   }, [])
 
-  // const registerForPushNotifications = async () => { 
+  // const registerForPushNotifications = async () => {
   //   try {
   //      const permission = await Permissions.askAsync(Permissions.NOTIFICATIONS);
   //      if (!permission.granted) return;
@@ -26,6 +26,8 @@ const AppNavigator = () => {
   //   }
   // }
 
+  const buttonColor = '#00FF00';
+
   return (
     <Tabs.Navigator>
       <Tabs.Screen
@@ -33,16 +35,17 @@ const AppNavigator = () => {
         component={MainNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <MaterialCommunityIcons name="home" color={buttonColor} size={size} />
           ),
         }}
       />
       <Tabs.Screen
+      color={buttonColor}
         name="Profile"
         component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <MaterialCommunityIcons name="account" color={buttonColor} size={size} />
           ),
         }}
       />

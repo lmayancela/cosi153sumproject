@@ -1,12 +1,20 @@
 //UserDetails screen
 import React from 'react';
-import { Text } from 'react-native';
-import ScreenContainer from "../components/ScreenContainer";
+import { Button, Text, View } from 'react-native';
+import ScreenContainer from '../components/ScreenContainer';
+import styles from '../config/styles';
 
 const UserDetails = () => {
+
   return (
     <ScreenContainer>
-      <Text>Account information and phone number connects go here</Text>
+      <View style={styles.screenContainer}>
+        <View style={styles.screenButtonContainer}>
+
+          <Text>Account information and phone number connects go here</Text>
+          
+        </View>
+      </View>
     </ScreenContainer>
   )
 }
