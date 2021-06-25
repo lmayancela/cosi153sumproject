@@ -28,8 +28,7 @@ const MainNavigator = () => (
     })}
     />
     <Stack.Screen name='NotificationTest' component={NotificationTest} options={({ route }) => ({
-      // title: route.params.name,
-      title: "TRIAGE NOTIF TEST"
+      title: route.params.name,
     })}
     />
 

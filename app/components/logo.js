@@ -6,8 +6,8 @@ import styles from '../config/styles';
 
 const Logo = () => {
   return (
-    <View style={{ display: 'flex' }}>
-      {/* <Image source={require('../assets/logoB.png')} alt="Logo" />  */}
+    <View style={{ display: 'flex'}}>
+      <Image style={{height: '50%', width: 70}} source={require('../assets/logoB.png')} alt="Logo" /> 
       {/* originally width 70 pixels */}
 
       <Text style={styles.logoText}> BotherMe </Text>

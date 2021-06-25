@@ -42,7 +42,14 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
               name: "List of All Reminders Screen"
             })}
           />
-          
+          {/* TODO: if we intend to have all buttons be the same color, we should create a new component called ColoredButton. */}
+          {/* <Button
+            color={buttonColor}
+            title="Send an email"
+            onPress={() => navigation.push("SendEmail", {
+              name: "Lisandro Email Send Test"
+            })}
+          /> */}
           <Button
             title="Send a Notification"
             onPress={() => navigation.push("NotificationTest", {
@@ -50,6 +57,7 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
             })}
           />
         </View>
+        {/* Why are there two nested views? Too redundant... */}
       </View>
     </ScreenContainer>
 
@@ -58,13 +66,6 @@ const Main = ({ navigation }) => { // navigation is the stack navigator sent fro
 
 export default Main;
 
-//{/* TODO: if we intend to have all buttons be the same color, we should create a new component called ColoredButton. */}
-          // {/* <Button
-          //   color={buttonColor}
-          //   title="Send an email"
-          //   onPress={() => navigation.push("SendEmail", {
-          //     name: "Lisandro Email Send Test"
-          //   })}
-          // /> */}
 
-          // {/* Why are there two nested views? Too redundant... */}
+
+          

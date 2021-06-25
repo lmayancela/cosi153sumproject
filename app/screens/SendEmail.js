@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, Button, TextInput } from 'react-native';
-// import Twitter from 'twitter';
+import Twitter from 'twitter';
 import emailjs from 'emailjs-com';
 // Local imports
 import ScreenContainer from '../components/ScreenContainer';
