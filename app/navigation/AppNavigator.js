@@ -8,6 +8,8 @@ import ProfileNavigator from './ProfileNavigator';
 const Tabs = createBottomTabNavigator();
 
 const AppNavigator = () => {
+  let tempColor = '#f09f2a'
+
   return (
     <Tabs.Navigator>
       <Tabs.Screen
@@ -15,7 +17,11 @@ const AppNavigator = () => {
         component={MainNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="home"
+              color={tempColor}
+              size={size}
+            />
           ),
         }}
       />
@@ -24,7 +30,11 @@ const AppNavigator = () => {
         component={ProfileNavigator}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="account" color={color} size={size} />
+            <MaterialCommunityIcons
+              name="account"
+              color={tempColor}
+              size={size}
+            />
           ),
         }}
       />
