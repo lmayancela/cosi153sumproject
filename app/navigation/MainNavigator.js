@@ -6,13 +6,13 @@ import {
   CreateReminder,
   ReminderList,
   NotificationTest,
-  SendEmail
+  // SendEmail
 } from '../screens/index';
 
 const Stack = createStackNavigator();
 
 const MainNavigator = () => (
-  <Stack.Navigator style={styles.screenbackground}>
+  <Stack.Navigator>
     <Stack.Screen name='Main' component={Main} options={{
       title: "Main Screen"
     }} />
@@ -21,14 +21,15 @@ const MainNavigator = () => (
       user: 'FILL_LATER'
     })}
     />
-    <Stack.Screen name='SendEmail' component={SendEmail} />
+    {/* <Stack.Screen name='SendEmail' component={SendEmail} /> */}
     <Stack.Screen name='ReminderList' component={ReminderList} options={({ route }) => ({
       title: route.params.name,
       user: 'FILL_LATER'
     })}
     />
     <Stack.Screen name='NotificationTest' component={NotificationTest} options={({ route }) => ({
-      title: route.params.name,
+      // title: route.params.name,
+      title: "TRIAGE NOTIF TEST"
     })}
     />
 
