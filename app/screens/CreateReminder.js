@@ -1,52 +1,41 @@
-//CreateReminder screen
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect }  from 'react';
 import { SafeAreaView, ScrollView, View, Button,
          FlatList, StyleSheet, Text, TextInput, StatusBar } from 'react-native';
-import ScreenContainer from '../components/ScreenContainer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Form from './Form'
 
-//Notes:
-//cant scrool down in browser (text can get cut off)
-//make it so theres a error if yuo try to submit a task without a task Name
-//make the tasks sort by due date?
-
-//I DONT KNOW IF WE CAN USE THE PROPS FINCTIONALITY AND THE NAVIGATION AT THE SAME TIME
-//but also this page seems to be working properly?
-const CreateReminder = ({ navigation }) => {
-  const [taskDueDate, setTaskDueDate] = useState(""); //blank date?
-  const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
-  const [notificationFrequency, setNotificationFrequency] = useState("");
-  const [taskName, setTaskName] = useState("");
-  const [taskNotes, setTaskNotes] = useState("");
-  const [task, setTask] = useState({taskName:'', taskDueDate:'', notificationType:'', notificationFrequency:''});
-  const [taskList, setTaskList] = useState([]);
-
-  const [reactionText, setReactionText] = useState("");
+const ToDoList = (props) => {
+  const [taskName,setTaskName] = useState("")
+  const [dueDate,setDueDate] = useState("")
+  const [notificationType,setNotificationType] = useState("")
+  const [notificationTimes,setNotificationTimes] = useState("")
+  const [notes,setNotes] = useState("")
+  const [taskList,setTaskList]= useState([])
 
   useEffect(() => {getData()}
-             ,[])
+           ,[])
 
-    const getData = async () => {
-       try {
-         // the '@profile_info' can be any string
-        const jsonValue = await AsyncStorage.getItem('@task_list')
-        let data = null
-        if (jsonValue!=null) {
-        data = JSON.parse(jsonValue)
-        setTaskList(data)
-         console.log('just set Info, Name and Email')
-         } else {
-          console.log('just read a null value from Storage')
-          //setInfo({})
-        //setName("")
-         //setEmail("")
+  const getData = async () => {
+        try {
+          // the '@profile_info' can be any string
+          const jsonValue = await AsyncStorage.getItem('@task_list')
+          let data = null
+          if (jsonValue!=null) {
+            data = JSON.parse(jsonValue)
+            setTaskList(data)
+            console.log('just set Info, Name and Email')
+          } else {
+            console.log('just read a null value from Storage')
+            setInfo({})
+            setName("")
+            setEmail("")
+          }
+
+
+        } catch(e) {
+          console.log("error in getData ")
+          console.dir(e)
+          // error reading value
         }
-      } catch(e) {
-      console.log("error in getData ")
-      console.dir(e)
-      // error reading value
-    }
   }
 
   const storeData = async (value) => {
@@ -61,117 +50,129 @@ const CreateReminder = ({ navigation }) => {
         }
   }
 
+  const clearAll = async () => {
+        try {
+          console.log('in clearData')
+          await AsyncStorage.clear()
+        } catch(e) {
+          console.log("error in clearData ")
+          console.dir(e)
+          // clear error
+        }
+  }
 
-  const renderTask = ({item}) => {
-      return (
-        <View>
-             <Text>Task: {item.taskName} </Text> //make bold
-             <Text> Due Date: {item.taskDueDate} </Text>
-             <Text> Notifcation Type: {item.notificationType} </Text>
-             <Text> Notification Frequency: {item.notificationFrequency} </Text>
-             <Text> Notes: {item.taskNotes} </Text>
-        </View> //make about to edit by clicking on fields? have task details expand/shrink?
-      )
-    }
+
+  const renderTodoItem = ({item}) => {
+    return (
+      <View style={{border:'thin solid red'}}>
+        <Text style={styles.todoItem}>
+           <Text>{item.taskName} by </Text>
+           <Text> {item.dueDate} </Text>
+           <Text> notification types: {item.notificationType} </Text>
+           <Text> notification times: {item.notificationTimes} </Text>
+           <Text> notes: {item.notes} </Text>
+        </Text>
+      </View>
+    )
+  }
+
+  let debug=false
+  const debugView =
+    (<View>
+      <Text style={styles.headerText}>
+        DEBUGGING INFO
+      </Text>
+      <Text>
+         dueDate is ({dueDate})
+      </Text>
+      <Text>
+         todoItems is {JSON.stringify(taskList)}
+      </Text>
+  </View>);
 
   return (
-    <ScreenContainer>
-    <ScrollView>
-      <Text style={styles.headerText}>Create a Reminder</Text>
-      <Text> </Text>
-      <View style={styles.rowContainer}>
-        <Text>What is the task you want to complete?</Text>
+    <View style={styles.container}>
+      <Text style={styles.headerText}> ToDo List </Text>
+      <View>
         <TextInput
-          style={styles.textinput}
+          style={{height: 20}}
+          placeholder="Enter todo item here"
           onChangeText={text => {
-            setTaskName(text);
-            setReactionText("");
-          }}
+               setTaskName(text);
+             }}
           value = {taskName}
         />
       </View>
-      <View style={styles.rowContainer}>
-        <Text>When should your task be done by?</Text>
+      <View>
         <TextInput
-          style={styles.textinput}
-          onChangeText={text => { setTaskDueDate(text) }}
-          value = {taskDueDate}
+          style={{height: 20}}
+          placeholder="Enter due date"
+          onChangeText={text => {
+               setDueDate(text);
+             }}
+          value = {dueDate}
         />
       </View>
-      <View style={styles.rowContainer}>
-        <Text>How would you like to be notified?</Text>
+      <View>
         <TextInput
-          style={styles.textinput}
-          onChangeText={text => { setNotificationType(text) }}
+          style={{height: 20}}
+          placeholder="Enter notification type"
+          onChangeText={text => {
+               setNotificationType(text);
+             }}
           value = {notificationType}
         />
       </View>
-      <View style={styles.rowContainer}>
-        <Text>How often would you like to be notified?</Text>
+      <View>
         <TextInput
-          style={styles.textinput}
-          onChangeText={text => { setNotificationFrequency(text) }}
-          value={notificationFrequency}
+          style={{height: 20}}
+          placeholder="Enter notification times"
+          onChangeText={text => {
+               setNotificationTimes(text);
+             }}
+          value = {notificationTimes}
         />
       </View>
-      <View style={styles.rowContainer}>
-        <Text>(Optional) Notes about your task:</Text>
+      <View>
         <TextInput
-          style={styles.textinput}
-          onChangeText={text => { setTaskNotes(text) }}
-          value={taskNotes}
+          style={{height: 20}}
+          placeholder="Enter notes"
+          onChangeText={text => {
+               setNotes(text);
+             }}
+          value = {notes}
         />
       </View>
-      <View> //for some reason stores the first but not secind entry in memeory (though it does for the other fielfs)
+      <View>
         <Button
-           title={"Add Item"}
+           title={"add"}
+           color="blue"
            onPress = {() => {
-             //do i have to declare a new task?
-             //setTask({'taskName':taskName, 'taskDueDate':taskDueDate, 'notificationType':notificationType, 'notificationFrequency':notificationFrequency, 'taskNotes':taskNotes})
-             //i use a seperate step to make the task as opposed to what we did in class bc I thik  its cleaer
-             setTaskList(taskList.concat(
-               {'taskName':taskName, 'taskDueDate':taskDueDate, 'notificationType':notificationType, 'notificationFrequency':notificationFrequency, 'taskNotes':taskNotes}))
-            storeData(taskList);
-            setReactionText("Task " + taskName + " successfully added!!")
+             const newTaskList =
+               taskList.concat(
+                 {'taskName':taskName,
+                 'dueDate':dueDate,
+                 'notificationType':notificationType,
+                 'notificationTimes':notificationTimes,
+                 'notes':notes,
+               })
+             setTaskList(newTaskList)
+             storeData(newTaskList)
              setTaskName("")
-             setTaskDueDate("")
+             setDueDate("")
              setNotificationType("")
-             setNotificationFrequency("")
-             setTaskNotes("")
-             storeData(taskList);
-
-             setTaskList(taskList.concat(
-               {'taskName':taskName, 'taskDueDate':taskDueDate, 'notificationType':notificationType, 'notificationFrequency':notificationFrequency, 'taskNotes':taskNotes}))
-            storeData(taskList);
-            setReactionText("Task " + taskName + " successfully added!!")
-             setTaskName("")
-             setTaskDueDate("")
-             setNotificationType("")
-             setNotificationFrequency("")
-             setTaskNotes("")
-             storeData(taskList);
+             setNotificationTimes("")
+             setNotes("")
            }}
            />
-      <Text> </Text>
       </View>
-      <Text> </Text>
-      {reactionText}
-      <Text> </Text>
-      <Text> </Text>
-      <Text style={styles.headerText}>Your Tasks:</Text>
       <FlatList
         data={taskList}
-        renderItem={renderTask}
-        keyExtractor={item => item.taskName} //i dont know what this line does
+        renderItem={renderTodoItem}
+        keyExtractor={item => item.date}
       />
-      <Text>
-
-       todoItems is {JSON.stringify(taskList)}
-       </Text>
-      </ScrollView>
-      <Text>Create a Reminder</Text>
-      <Form></Form>
-    </ScreenContainer>
+      {debug?debugView: <Text>""</Text>}
+    </View>
   );
 }
 
@@ -180,14 +181,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection:'column',
     backgroundColor: '#eee',
-    alignItems: 'left',
-    justifyContent: 'left',
+    justifyContent: 'center',
     textAlign:'left',
     marginTop:20,
     padding:20,
   },
   todoItem:{
-    justifyContent:'left',
+    justifyContent:'center',
   },
   headerText: {
     textAlign:'center',
@@ -199,4 +199,5 @@ const styles = StyleSheet.create({
 
 });
 
-export default CreateReminder;
+
+export default ToDoList;
