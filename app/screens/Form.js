@@ -3,7 +3,7 @@ import { Button, StyleSheet, Text, TextInput, View, Picker, Platform } from "rea
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { ScreenContainer } from '../components/ScreenContainer';
+import ScreenContainer from '../components/ScreenContainer';
 import styles from '../config/styles';
 
 // This name will probably need changing later
