@@ -12,11 +12,9 @@ const ProfileHome = ({ navigation }) => {
     <ScreenContainer>
       <View style={styles.screenContainer}>
         <View style={styles.screenButtonContainer}>
-
+          {/* screen button container seems out-of-place */}
           <Text>Profile Home Screen</Text>
-          <br />
           <Button color={buttonColor} title="User Details" onPress={() => { navigation.push("UserDetails") }} />
-          <br />
           <Button color={buttonColor} title="Form" onPress={() => { navigation.push("Form") }} />
 
         </View>

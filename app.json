@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "BotherMe",
-    "slug": "BotherMe",
+    "slug": "botherme",
     "version": "0.1.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./app/assets/favicon.png"
-    }
+    },
+    "description": "BotherMe test builds",
+    "githubUrl": "https://github.com/lmayancela/cosi153sumproject"
   }
 }
