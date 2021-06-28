@@ -7,8 +7,9 @@ import styles from '../config/styles';
 
 // This name will probably need changing later
 const Form = (props) => {
-  const [info, setInfo] = useState({ username: "", notiTypes: "", notiFreq: "", task: { name: "", dueDate: "", notes: "" } });
+  const [info, setInfo] = useState({ username: "", email:"" });
   const [username, setUsername] = useState("");
+<<<<<<< Updated upstream
   const [taskNotes, setTaskNotes] = useState("");
   const [taskName, setTaskName] = useState([]); //concat onto list, have the option to add more at a time later
   const [taskDueDate, setTaskDueDate] = useState(new Date(Date.now())); // new Date object that is today
@@ -108,6 +109,40 @@ const Form = (props) => {
           value={null} //ditto above
         />
       </View>
+=======
+  const [email, setEmail] = useState("");
+
+  return (
+    <ScreenContainer>
+      <ScrollView>
+
+        <View>
+          <Text style={styles.header}>Sign Up Form</Text>
+            <Text>Enter your name:</Text>
+            <TextInput
+              style={styles.textinput}
+              onChangeText={text => { setUsername(text) }}
+              value={username} //tbh dont know the purpose of this line
+            />
+            <Text>Enter your email:</Text>
+            <TextInput
+              style={styles.textinput}
+              onChangeText={text => { setEmail(text) }}
+              value={email} //tbh dont know the purpose of this line
+            />
+            <Button
+          title="submit"
+          onPress={() => {
+            const theInfo = { username, email }
+          }}
+        />
+        </View>
+      </ScrollView>
+    </ScreenContainer>
+  );
+
+}
+>>>>>>> Stashed changes
 
       {/* // this button is buggy since taskNotes isn't yet defined */}
       <Button
