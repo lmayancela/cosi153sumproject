@@ -1,25 +1,49 @@
 //ReminderList component
-import React from 'react';
-import { Button, Text, View } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, ScrollView, View, Button,
+         FlatList, StyleSheet, Text, TextInput, StatusBar } from "react-native";
 import ScreenContainer from '../components/ScreenContainer';
-import styles from '../config/styles';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ReminderList = ({ navigation }) => {
+  const [taskList,setTaskList]= useState([])
+  const [reminderListText,setReminderListText]= useState([])
+  const [taskListIndex,setTaskListIndex]= useState(0)
 
-  const buttonColor = '#00FF00';
+  useEffect(() => {getData()}
+           ,[])
 
-  return (
-    <ScreenContainer>
-      <View style={styles.screenContainer}>
-        <View style={styles.screenButtonContainer}>
+  const getData = async () => {
+    try {
+      // the '@profile_info' can be any string
+      //it feels weird that I rpeat this btwee this page and the task page??
+      //maybe I can use this one component to have a task page with blank values on the form page...
+      const jsonValue = await AsyncStorage.getItem('@task_list')
+      let data = null
+      if (jsonValue!=null) {
+      data = JSON.parse(jsonValue)
+      setTaskList(data)
+      console.log('just set task list')
+      } else {
+       //wait why is the if a list and the else is individual items
+      console.log('just read a null value from Storage')
+      //setInfo({})
+       //setName("")
+      //setEmail("")
+      }
+      } catch(e) {
+        console.log("error in getData ")
+        console.dir(e)
+        // error reading value
+      }
+    }
 
-          <Text>All Reminders</Text>
-          <Button color={buttonColor} title="This button does nothing" />
 
-        </View>
-      </View>
-    </ScreenContainer>
-  );
-}
+    return (
+      <Text> {JSON.stringify(taskList)}</Text>
+    );
+  }
+
+
 
 export default ReminderList;
