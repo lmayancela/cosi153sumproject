@@ -8,15 +8,17 @@ const EditableTask = (props) => {
 
   const CreateReminder = ({ navigation }) => {
     //use context so dont have to load for each page??
-    const [taskDueDate, setTaskDueDate] = useState(""); //blank date?
+    const [dueDate, setDueDate] = useState(""); //blank date?
     const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
-    const [notificationFrequency, setNotificationFrequency] = useState("");
+    const [notificationTimes, setNotificationTimes] = useState("");
     const [taskName, setTaskName] = useState("");
-    const [taskNotes, setTaskNotes] = useState("");
+    const [notes, setNotes] = useState("");
     const [task, setTask] = useState({taskName:'', taskDueDate:'', notificationType:'', notificationFrequency:''});
     const [reactionText, setReactionText] = useState("");
     const [previousTaskName, setPreviousTaskName] = useState("");
     const [taskList,setTaskList]= useState([])
+
+
 
     //passes through the list and the task, changes the attributes of the specific task, and resaves the json list in aync
 
@@ -73,9 +75,10 @@ const EditableTask = (props) => {
     <Text>Task Name: </Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.taskNotes}
+      placeholder={props.object.notes}
       onChangeText={text => {
         setTaskName(text);
+          taskList[i].taskName = taskName
       }}
       value = {taskName}
     />
@@ -84,17 +87,21 @@ const EditableTask = (props) => {
     <Text>Due Date: </Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.taskDueDate}
-      onChangeText={text => { setTaskDueDate(text) }}
-      value = {taskDueDate}
+      placeholder={props.object.dueDate}
+      onChangeText={text => { setDueDate(text)
+          taskList[i].dueDate = dueDate
+      }}
+      value = {dueDate}
     />
   </View>
   <View style={styles.rowContainer}>
     <Text>Notification Type: </Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.notificationType}
-      onChangeText={text => { setNotificationType(text) }}
+      placeholder={props.object.notificationType}
+      onChangeText={text => { setNotificationType(text)
+      taskList[i].notificationType = notificationType
+      }}
       value = {notificationType}
     />
   </View>
@@ -102,35 +109,33 @@ const EditableTask = (props) => {
     <Text>Notification Frequency</Text> //make frequeny match up with type?? set individually?
     <TextInput
       style={styles.textinput}
-      placeholder={props.notificationFrequency}
-      onChangeText={text => { setNotificationFrequency(text) }}
-      value={notificationFrequency}
+      placeholder={props.object.notificationTimes}
+      onChangeText={text => { setNotificationTimes(text)
+        taskList[i].notificationTimes = notificationTimes
+      }}
+      value={notificationTimes}
     />
   </View>
   <View style={styles.rowContainer}>
     <Text>Notes:</Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.taskNotes}
-      onChangeText={text => { setTaskNotes(text) }}
+      placeholder={props.object.notes}
+      onChangeText={text => { setNotes(text)
+          taskList[i].notes = notes
+      }}
       value={taskNotes}
     />
   </View>
     <Button
-       title={"Add Item"}
+       title={"Save Changes"}
        onPress = {() => {
          //do i have to declare a new task?
-         setTask({'taskName':taskName, 'taskDueDate':taskDueDate, 'notificationType':notificationType, 'notificationFrequency':notificationFrequency, 'taskNotes':taskNotes})
+
          //i use a seperate step to make the task as opposed to what we did in class bc I thik  its cleaer
          //SEARCH FOR TASK WITH REVIOUS NAME AND DELETE
-         setTaskList(taskList.concat(
-           {'taskName':taskName, 'taskDueDate':taskDueDate, 'notificationType':notificationType, 'notificationFrequency':notificationFrequency, 'taskNotes':taskNotes}))
         setReactionText("Task successfully Updated!!")
-         setTaskName("")
-         setTaskDueDate("")
-         setNotificationType("")
-         setNotificationFrequency("")
-         setTaskNotes("")
+
        }}
        />
     </View>

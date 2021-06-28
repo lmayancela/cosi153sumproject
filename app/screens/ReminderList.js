@@ -38,11 +38,28 @@ const ReminderList = ({ navigation }) => {
       }
     }
 
+    render(){
 
-    return (
-      <Text> {JSON.stringify(taskList)}</Text>
-    );
-  }
+    	var tasks = [];
+
+    	for(let i = 0; i < taskList.length; i++){
+    		tasks.push(
+    			<View key = {i}>
+    				<EditableTask object={taskList[i]} index={i}/>
+    			</View>
+    		)
+    	}
+
+    	return (
+    		<View>
+    			<View>
+    				<View><Text>Your Tasks:</Text></View>
+    			</View>
+
+    			{ tasks }
+    		</View>
+    	)
+    }
 
 
 

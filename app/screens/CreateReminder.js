@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect }  from 'react';
 import { SafeAreaView, ScrollView, View, Button,
          FlatList, StyleSheet, Text, TextInput, StatusBar } from 'react-native';
@@ -173,6 +174,32 @@ const ToDoList = (props) => {
       />
       {debug?debugView: <Text>""</Text>}
     </View>
+=======
+//CreateReminder screen
+import React from 'react';
+import { Button, Text, View } from 'react-native';
+import ScreenContainer from '../components/ScreenContainer';
+import styles from '../config/styles';
+import Form from './Form'
+
+const CreateReminder = ({ navigation }) => {
+
+  const buttonColor = '#00FF00';
+
+  return (
+    <ScreenContainer>
+      <View style={styles.screenContainer}>
+        <View style={styles.screenButtonContainer}>
+
+          <Text>Create a Reminder</Text>
+
+        </View>
+      </View>
+      
+      <Text>Create a Reminder</Text>
+      <Form></Form>
+    </ScreenContainer>
+>>>>>>> main
   );
 }
 
