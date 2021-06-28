@@ -1,13 +1,12 @@
 //CreateReminder screen
 import React, { useState, useEffect } from 'react';
 import {
-  SafeAreaView, ScrollView, View, Button,
-  FlatList, StyleSheet, Text, TextInput, StatusBar
+  ScrollView, View, Button,
+  FlatList, StyleSheet, Text, TextInput
 } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Form from './Form'
 
 //Notes:
 //cant scrool down in browser (text can get cut off)
@@ -18,7 +17,8 @@ import Form from './Form'
 //but also this page seems to be working properly?
 const CreateReminder = ({ navigation }) => {
   const [taskDueDate, setTaskDueDate] = useState(""); //blank date?
-  const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
+  // ! NR: changed the below datatype to string based on your use case
+  const [notificationType, setNotificationType] = useState(""); //keeping this as general rather than per task for now
   const [notificationFrequency, setNotificationFrequency] = useState("");
   const [taskName, setTaskName] = useState("");
   const [taskNotes, setTaskNotes] = useState("");
@@ -27,12 +27,10 @@ const CreateReminder = ({ navigation }) => {
 
   const [reactionText, setReactionText] = useState("");
 
-  useEffect(() => { getData() }
-    , [])
+  useEffect(() => { getData() }, [])
 
   const getData = async () => {
     try {
-      // the '@profile_info' can be any string
       const jsonValue = await AsyncStorage.getItem('@task_list')
       let data = null
       if (jsonValue != null) {
@@ -64,25 +62,27 @@ const CreateReminder = ({ navigation }) => {
     }
   }
 
-
   const renderTask = ({ item }) => {
     return (
       <View>
-        <Text>Task: {item.taskName} </Text> //make bold
+        <Text> Task: {item.taskName} </Text>
+        {/* //make bold */}
         <Text> Due Date: {item.taskDueDate} </Text>
         <Text> Notifcation Type: {item.notificationType} </Text>
         <Text> Notification Frequency: {item.notificationFrequency} </Text>
         <Text> Notes: {item.taskNotes} </Text>
-      </View> //make about to edit by clicking on fields? have task details expand/shrink?
+      </View>
+      //make about to edit by clicking on fields? have task details expand/shrink?
     )
-  }
+  };
 
   return (
-    <ScreenContainer>
+    <ScrollView>
+      <ScreenContainer>
 
-      <ScrollView>
+
         <Text style={styles.headerText}>Create a Reminder</Text>
-        <Text> </Text>
+        {/* // ! rowContainer is not defined */}
         <View style={styles.rowContainer}>
           <Text>What is the task you want to complete?</Text>
           <TextInput
@@ -98,7 +98,7 @@ const CreateReminder = ({ navigation }) => {
           <Text>When should your task be done by?</Text>
           <TextInput
             style={styles.textinput}
-            onChangeText={text => { setTaskDueDate(text) }}
+            onChangeText={setTaskDueDate}
             value={taskDueDate}
           />
         </View>
@@ -106,7 +106,7 @@ const CreateReminder = ({ navigation }) => {
           <Text>How would you like to be notified?</Text>
           <TextInput
             style={styles.textinput}
-            onChangeText={text => { setNotificationType(text) }}
+            onChangeText={setNotificationType}
             value={notificationType}
           />
         </View>
@@ -114,7 +114,7 @@ const CreateReminder = ({ navigation }) => {
           <Text>How often would you like to be notified?</Text>
           <TextInput
             style={styles.textinput}
-            onChangeText={text => { setNotificationFrequency(text) }}
+            onChangeText={setNotificationFrequency}
             value={notificationFrequency}
           />
         </View>
@@ -122,11 +122,12 @@ const CreateReminder = ({ navigation }) => {
           <Text>(Optional) Notes about your task:</Text>
           <TextInput
             style={styles.textinput}
-            onChangeText={text => { setTaskNotes(text) }}
+            onChangeText={setTaskNotes}
             value={taskNotes}
           />
         </View>
-        <View> //for some reason stores the first but not secind entry in memeory (though it does for the other fielfs)
+        <View>
+          {/* //for some reason stores the first but not secind entry in memeory (though it does for the other fielfs) */}
           <Button
             title={"Add Item"}
             onPress={() => {
@@ -156,24 +157,17 @@ const CreateReminder = ({ navigation }) => {
               storeData(taskList);
             }}
           />
-          <Text> </Text>
         </View>
-        <Text> </Text>
-        {reactionText}
-        <Text> </Text>
-        <Text> </Text>
+        <Text>{reactionText}</Text>
         <Text style={styles.headerText}>Your Tasks:</Text>
         <FlatList
           data={taskList}
           renderItem={renderTask}
-          keyExtractor={item => item.taskName} //i dont know what this line does
+          keyExtractor={item => item.taskName} //i dont know what this line does  //NR: this determines a 
         />
-        <Text>
-
-          todoItems is {JSON.stringify(taskList)}
-        </Text>
-      </ScrollView>
-    </ScreenContainer>
+        <Text> todoItems is {JSON.stringify(taskList)} </Text>
+      </ScreenContainer>
+    </ScrollView>
   );
 }
 
@@ -182,14 +176,14 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: '#eee',
-    alignItems: 'left',
-    justifyContent: 'left',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start', // * was "left"
     textAlign: 'left',
     marginTop: 20,
     padding: 20,
   },
   todoItem: {
-    justifyContent: 'left',
+    justifyContent: 'flex-start', // * was "left"
   },
   headerText: {
     textAlign: 'center',

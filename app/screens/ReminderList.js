@@ -1,17 +1,15 @@
 //ReminderList component
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, View, Button,
-         FlatList, StyleSheet, Text, TextInput, StatusBar } from "react-native";
-import ScreenContainer from '../components/ScreenContainer';
+import { Text } from "react-native";
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ReminderList = ({ navigation }) => {
-  const [taskList,setTaskList]= useState([])
-  const [reminderListText,setReminderListText]= useState([])
-  const [taskListIndex,setTaskListIndex]= useState(0)
+  const [taskList, setTaskList] = useState([])
+  const [reminderListText, setReminderListText] = useState([])  //unused?
+  const [taskListIndex, setTaskListIndex] = useState(0)         //unused?
 
-  useEffect(() => {getData()}
-           ,[])
+  useEffect(() => { getData() }, [])
 
   const getData = async () => {
     try {
@@ -20,29 +18,29 @@ const ReminderList = ({ navigation }) => {
       //maybe I can use this one component to have a task page with blank values on the form page...
       const jsonValue = await AsyncStorage.getItem('@task_list')
       let data = null
-      if (jsonValue!=null) {
-      data = JSON.parse(jsonValue)
-      setTaskList(data)
-      console.log('just set task list')
+      if (jsonValue != null) {
+        data = JSON.parse(jsonValue)
+        setTaskList(data)
+        console.log('just set task list')
       } else {
-       //wait why is the if a list and the else is individual items
-      console.log('just read a null value from Storage')
-      //setInfo({})
-       //setName("")
-      //setEmail("")
+        //wait why is the if a list and the else is individual items
+        console.log('just read a null value from Storage')
+        //setInfo({})
+        //setName("")
+        //setEmail("")
       }
-      } catch(e) {
-        console.log("error in getData ")
-        console.dir(e)
-        // error reading value
-      }
+    } catch (e) {
+      console.log("error in getData ")
+      console.dir(e)
+      // error reading value
     }
-
-
-    return (
-      <Text> {JSON.stringify(taskList)}</Text>
-    );
   }
+
+
+  return (
+    <Text> {JSON.stringify(taskList)}</Text>
+  );
+}
 
 
 
