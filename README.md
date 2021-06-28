@@ -8,6 +8,7 @@ to be deployed across mobile and web
 1. Node.js 14.17 *(do not install 16.02 or later)* (available [here](https://nodejs.org/en/download/))
 2. Yarn (available [here](https://classic.yarnpkg.com/en/docs/install/#windows-stable))
 3. React Native 17.0.2
+4. Expo 41 SDK
 
 ## Important resources for the developers
 - This respository
