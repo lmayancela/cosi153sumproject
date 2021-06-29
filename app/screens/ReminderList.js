@@ -1,8 +1,7 @@
 //ReminderList component
 import React, { useState, useEffect } from "react";
-import { Button, StyleSheet, Text, TextInput, View, FlatList, ScrollView } from "react-native";
-import EditableTask from '../components/EditableTask';
-import ScreenContainer from '../components/ScreenContainer';
+import { Text } from "react-native";
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ReminderList = ({ navigation }) => {
@@ -37,52 +36,9 @@ const ReminderList = ({ navigation }) => {
     }
   }
 
-  const storeData = async (value) => {
-        try {
-          const jsonValue = JSON.stringify(value)
-          await AsyncStorage.setItem('@task_list', jsonValue)
-          console.log('just stored '+jsonValue)
-        } catch (e) {
-          console.log("error in storeData ")
-          console.dir(e)
-          // saving error
-        }
-  }
-
 
   return (
-    <ScrollView>
-      <Text>hiiii</Text>
-      <Text>test</Text>
-      <FlatList
-        data={taskList}
-        renderItem={({ item, index }) => (
-          <View>
-          <Text>{index}</Text>
-          <EditableTask
-            object={item}
-            index={index}
-          />
-          <Button
-          title="delete"
-          onPress={() => {
-               console.log('list before splice:' + {taskList} + 'to be removed: ' + {item}.taskName)
-               const newTaskList = taskList;
-               newTaskList.splice(index,1)
-               setTaskList(newTaskList)
-               storeData(taskList)
-               navigation.navigate("ReminderList", {
-                 name: "List of All Reminders Screen"
-               })
-               console.log('list after splice:' + {taskList})
-             }}
-             />
-         </View>
-       )}
-        keyExtractor={item => item.id}
-      />
-      <Text> {JSON.stringify(taskList)}</Text>
-    </ScrollView>
+    <Text> {JSON.stringify(taskList)}</Text>
   );
 }
 
