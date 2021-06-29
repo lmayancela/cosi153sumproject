@@ -1,21 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import ScreenContainer from '../components/ScreenContainer';
 
-//TBH i DONT know if passing just the object through would update it in hte list, so im passing the list and the index of th eitem in
+//TBH i DONT know if passing just the object through would update it in hte list, so im passing the list and the {props.index} of th eitem in
 // const mph2fps = (mph) => mph*5280/3600
 
 const EditableTask = (props) => {
-
-  const CreateReminder = ({ navigation }) => {
     //use context so dont have to load for each page??
-    const [taskDueDate, setTaskDueDate] = useState(""); //blank date?
+    const [dueDate, setDueDate] = useState(""); //blank date?
     const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
-    const [notificationFrequency, setNotificationFrequency] = useState("");
+    const [notificationTimes, setNotificationTimes] = useState("");
+    const [notes, setNotes] = useState("");
     const [taskName, setTaskName] = useState("");
-    const [taskNotes, setTaskNotes] = useState("");
-    const [task, setTask] = useState({taskName:'', taskDueDate:'', notificationType:'', notificationFrequency:''});
     const [reactionText, setReactionText] = useState("");
-    const [previousTaskName, setPreviousTaskName] = useState("");
     const [taskList,setTaskList]= useState([])
 
     //passes through the list and the task, changes the attributes of the specific task, and resaves the json list in aync
@@ -64,18 +61,31 @@ const EditableTask = (props) => {
         }
   }
 
+  const clearAll = async () => {
+        try {
+          console.log('in clearData')
+          await AsyncStorage.clear()
+        } catch(e) {
+          console.log("error in clearData ")
+          console.dir(e)
+          // clear error
+        }
+  }
+
   return (
   <ScreenContainer>
   <View>
   <Text style={styles.headerText}>Create a Reminder</Text>
   <Text> </Text>
   <View style={styles.rowContainer}>
-    <Text>Task Name: </Text>
+    <Text>Task Name: {props.object.taskName}</Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.taskNotes}
+      placeholder={props.object.taskName}
       onChangeText={text => {
-        setTaskName(text);
+        setTaskName(text)
+        props.object.taskName = taskName;
+        storeData(taskList)
       }}
       value = {taskName}
     />
@@ -84,59 +94,63 @@ const EditableTask = (props) => {
     <Text>Due Date: </Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.taskDueDate}
-      onChangeText={text => { setTaskDueDate(text) }}
-      value = {taskDueDate}
+      placeholder={props.object.dueDate}
+      onChangeText={text => {
+        setDueDate(text)
+        props.object.dueDate = dueDate;
+        storeData(taskList)
+      }}
+      value = {dueDate}
     />
   </View>
   <View style={styles.rowContainer}>
     <Text>Notification Type: </Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.notificationType}
-      onChangeText={text => { setNotificationType(text) }}
+      placeholder={props.object.notificationType}
+      onChangeText={text => {
+        setNotificationType(text)
+        props.object.notificationType = notificationType;
+        storeData(taskList)
+      }}
       value = {notificationType}
     />
   </View>
   <View style={styles.rowContainer}>
-    <Text>Notification Frequency</Text> //make frequeny match up with type?? set individually?
+    <Text>Notification Times</Text> //make frequeny match up with type?? set individually?
     <TextInput
       style={styles.textinput}
-      placeholder={props.notificationFrequency}
-      onChangeText={text => { setNotificationFrequency(text) }}
-      value={notificationFrequency}
+      placeholder={props.object.notificationTimes}
+      onChangeText={text => {
+        setNotificationTimes(text)
+        props.object.notificationTimes =notificationTimes;
+        storeData(taskList)
+      }}
+      value={notificationTimes}
     />
   </View>
   <View style={styles.rowContainer}>
     <Text>Notes:</Text>
     <TextInput
       style={styles.textinput}
-      placeholder={props.taskNotes}
-      onChangeText={text => { setTaskNotes(text) }}
-      value={taskNotes}
+      placeholder={props.object.taskNotes}
+      onChangeText={text => {
+        setNotes(text)
+        props.object.notes = notes;
+        storeData(taskList)
+      }}
+      value={notes}
     />
   </View>
-    <Button
-       title={"Add Item"}
-       onPress = {() => {
-         //do i have to declare a new task?
-         setTask({'taskName':taskName, 'taskDueDate':taskDueDate, 'notificationType':notificationType, 'notificationFrequency':notificationFrequency, 'taskNotes':taskNotes})
-         //i use a seperate step to make the task as opposed to what we did in class bc I thik  its cleaer
-         //SEARCH FOR TASK WITH REVIOUS NAME AND DELETE
-         setTaskList(taskList.concat(
-           {'taskName':taskName, 'taskDueDate':taskDueDate, 'notificationType':notificationType, 'notificationFrequency':notificationFrequency, 'taskNotes':taskNotes}))
-        setReactionText("Task successfully Updated!!")
-         setTaskName("")
-         setTaskDueDate("")
-         setNotificationType("")
-         setNotificationFrequency("")
-         setTaskNotes("")
-       }}
-       />
-    </View>
-    <Text>{props.reactionText}</Text>
+  <View>
+
+          <Text>{props.reactionText}</Text>
+          </View>
+        </View>
+      </ScreenContainer>
       );
     }
+
   const styles = StyleSheet.create ({
     container: {
       flex: 1,
@@ -159,4 +173,4 @@ const EditableTask = (props) => {
     },
   });
 
-export default TipCalculator;
+export default EditableTask;
