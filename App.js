@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Platform, Text, View } from 'react-native';
+import { Platform, Text, View, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 // Local imports
 import AppNavigator from './app/navigation/AppNavigator';
+import RootNavigator from './app/navigation/RootNavigator';
+
 import { NotifierContext } from './app/contexts/NotifierContext';
 import { Splash } from './app/screens';
+import { AuthContext } from './app/components/context';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // #### Notifications ####
 Notifications.setNotificationHandler({
@@ -56,7 +60,94 @@ const App = () => {
   const notificationListener = useRef();
   const responseListener = useRef();
 
+  // authentication vars
+  const initialLoginState = {
+    isLoading: true,
+    userName: null,
+    userToken: null,
+  }
+
+  // the reducer handles state varibales
+  const loginReducer = (prevState, action) => {
+    switch( action.type ) {
+      case 'RETRIEVE_TOKEN':
+        return {
+          ...prevState,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGIN':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+      case 'LOGOUT':
+        return {
+          ...prevState,
+          userName: null,
+          userToken: null,
+          isLoading: false,
+        };
+      case 'REGISTER':
+        return {
+          ...prevState,
+          userName: action.id,
+          userToken: action.token,
+          isLoading: false,
+        };
+    }
+  };
+
+  //create the loginReducer
+  const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
+
+  //create authContext
+  const authContext = React.useMemo(() => ({
+    signIn: async(foundUser) => {
+      const userToken = String(foundUser[0].userToken);
+      const userName = foundUser[0].username;
+
+      try {
+        await AsyncStorage.setItem('userToken', userToken);
+      } catch(e) {
+        console.log(e);
+      }
+      // console.log('user token: ', userToken);
+      dispatch({ type: 'LOGIN', id: userName, token: userToken });
+    },
+    signOut: async() => {
+      try {
+        await AsyncStorage.removeItem('userToken');
+      } catch(e) {
+        console.log(e);
+      }
+      dispatch({ type: 'LOGOUT' });
+    },
+    signUp: () => {
+      //TODO: need to send user data to server and get a token
+    },
+    toggleTheme: () => {
+      setIsDarkTheme( isDarkTheme => !isDarkTheme );
+    }
+  }), []);
+
   useEffect(() => {
+    // get the user token for rendering
+    setTimeout(async() => {
+      //setIsLoading(false);
+      let userToken;
+      userToken = null;
+      try {
+        userToken = await AsyncStorage.getItem('userToken');
+      } catch(e) {
+        console.log(e);
+      }
+      // console.log('user token: ', userToken);
+      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
+    }, 1000);
+
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     // Foregrounded app notification listener
@@ -76,27 +167,32 @@ const App = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000); // Simulate a profile loading action by waiting a second
-  })
 
-  if (isLoading) {
-    return <Splash />;
+  if( loginState.isLoading ) {
+    return(
+      <View style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+        <ActivityIndicator size="large"/>
+      </View>
+    );
   }
 
 
   // Add theme prop to NavigationContainer later
   return (
+    <AuthContext.Provider value={authContext}>
     <NavigationContainer>
       <NotifierContext.Provider
         value={{
           Notifications, expoPushToken, notification
         }}>
-        <AppNavigator />
+        { loginState.userToken !== null ?
+          (<AppNavigator />)
+          :
+          <RootNavigator />
+        }
       </NotifierContext.Provider>
     </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
 

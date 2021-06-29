@@ -8,3 +8,6 @@ export { default as ReminderList } from './ReminderList';
 export { default as Splash } from './Splash';
 export { default as UserDetails } from './UserDetails';
 export { default as NotificationTest } from './NotificationTest';
+export { default as SignIn } from './SignIn';
+export { default as SignUp } from './SignUp';
+export { default as SignOut } from './SignOut';
