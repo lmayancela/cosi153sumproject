@@ -48,8 +48,8 @@ const SignInScreen = ({navigation}) => {
       <ScreenContainer>
       <View style={styles.container}>
         <View style={styles.header}>
-            <Text style={styles.text_header}>Welcome!</Text>
-        </View>
+            <Text style={styles.text_header}>Welcome to Bother Me!</Text>
+
             <Text style={[styles.text_footer]}>Username</Text>
             <View style={styles.action}>
                 <TextInput
@@ -64,6 +64,7 @@ const SignInScreen = ({navigation}) => {
                   }
                 />
             </View>
+
 
             <Text style={[styles.text_footer,
             ]}>Password</Text>
@@ -92,6 +93,7 @@ const SignInScreen = ({navigation}) => {
                     }]}>Sign In</Text>
 
                 </TouchableOpacity>
+              </View>
             </View>
       </View>
       </ScreenContainer>
@@ -107,12 +109,13 @@ const styles = StyleSheet.create({
     },
     header: {
         flex: 1,
-        justifyContent: 'flex-end',
-        paddingHorizontal: 20,
-        paddingBottom: 50
+        justifyContent: 'center',
+        paddingHorizontal: 30,
+        paddingBottom: 30
     },
     footer: {
-        flex: 3,
+        flex: 1,
+        justifyContent: 'center',
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
@@ -122,9 +125,11 @@ const styles = StyleSheet.create({
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 30,
+        paddingBottom: 30
     },
     text_footer: {
+        justifyContent: 'center',
         color: '#05375a',
         fontSize: 18
     },

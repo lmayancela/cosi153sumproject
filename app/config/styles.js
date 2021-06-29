@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
+    // alignItems: 'center',
     justifyContent: 'center',
   },
   screenContainer: {  // NR: I think this is being used in the wrong context because it always appears inside of a "container" which is called ScreenContainer...

@@ -2,7 +2,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import {
   Form,
-  UserDetails
+  UserDetails,
+  SignOut,
 } from '../screens/index';
 import ProfileHome from '../screens/ProfileHome';
 
@@ -15,6 +16,7 @@ const ProfileNavigator = () => (
     <Stack.Screen name='ProfileHome' component={ProfileHome} />
     <Stack.Screen name='UserDetails' component={UserDetails} />
     <Stack.Screen name='Form' component={Form} />
+    <Stack.Screen name='SignOut' component={SignOut} />
   </Stack.Navigator>
 );
 

@@ -16,6 +16,7 @@ const ProfileHome = ({ navigation }) => {
           <Text>Profile Home Screen</Text>
           <Button color={buttonColor} title="User Details" onPress={() => { navigation.push("UserDetails") }} />
           <Button color={buttonColor} title="Form" onPress={() => { navigation.push("Form") }} />
+          <Button color={buttonColor} title="Sign Out" onPress={() => { navigation.push("SignOut") }} />
 
         </View>
       </View>
