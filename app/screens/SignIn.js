@@ -22,26 +22,14 @@ const SignInScreen = ({navigation}) => {
 
     const { signIn } = React.useContext(AuthContext);
 
-    const loginHandle = (userName, password) => {
-
-        const foundUser = Users.filter( item => {
-            return userName == item.username && password == item.password;
-        } );
-
+    const loginHandle = () => {
         if ( data.username.length == 0 || data.password.length == 0 ) {
             Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
                 {text: 'Okay'}
             ]);
             return;
         }
-
-        if ( foundUser.length == 0 ) {
-            Alert.alert('Invalid User!', 'Username or password is incorrect.', [
-                {text: 'Okay'}
-            ]);
-            return;
-        }
-        signIn(foundUser);
+        signIn(data);
     }
 
     return (
