@@ -6,7 +6,6 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 
 const EditableTask = (props) => {
 
-  const CreateReminder = ({ navigation }) => {
     //use context so dont have to load for each page??
     const [taskDueDate, setTaskDueDate] = useState(""); //blank date?
     const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
