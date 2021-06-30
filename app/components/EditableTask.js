@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
-
+import ScreenContainer from '../components/ScreenContainer';
 //TBH i DONT know if passing just the object through would update it in hte list, so im passing the list and the index of th eitem in
 // const mph2fps = (mph) => mph*5280/3600
 
 const EditableTask = (props) => {
 
     //use context so dont have to load for each page??
-    const [taskDueDate, setTaskDueDate] = useState(""); //blank date?
-    const [notificationType, setNotificationType] = useState([]); //keeping this as general rather than per task for now
-    const [notificationFrequency, setNotificationFrequency] = useState("");
-    const [taskName, setTaskName] = useState("");
-    const [taskNotes, setTaskNotes] = useState("");
-    const [task, setTask] = useState({taskName:'', taskDueDate:'', notificationType:'', notificationFrequency:''});
+    const [dueDate, setDueDate] = useState(props.object.dueDate); //blank date?
+    const [notificationType, setNotificationType] = useState(props.object.notificationType); //keeping this as general rather than per task for now
+    const [notificationTimes, setNotificationTimes] = useState(props.object.notificationTimes);
+    const [taskName, setTaskName] = useState(props.object.notificationType);
+    const [notes, setNotes] = useState(props.object.notes);
     const [reactionText, setReactionText] = useState("");
 
     var taskList = props.taskList
@@ -107,7 +106,7 @@ const EditableTask = (props) => {
           style={styles.textinput}
           placeholder={props.object.notificationType}
           onChangeText={text => {
-            setNotificationType(text + " ")
+            setNotificationType(text)
             // NOTE: props.taskList[props.index].notificationType = notificationType;
             // NOTE: storeData(props.taskList)
           }}
@@ -131,7 +130,7 @@ const EditableTask = (props) => {
         <Text>Notes:</Text>
         <TextInput
           style={styles.textinput}
-          placeholder={props.object.taskNotes}
+          placeholder={props.object.notes}
           onChangeText={text => {
             setNotes(text)
             // NOTE: props.taskList[props.index].notes = notes;
@@ -180,4 +179,4 @@ const EditableTask = (props) => {
     },
   });
 
-export default TipCalculator;
+export default EditableTask;

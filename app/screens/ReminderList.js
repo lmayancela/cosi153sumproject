@@ -1,6 +1,10 @@
 //ReminderList component
 import React, { useState, useEffect } from "react";
-import { Text } from "react-native";
+import { SafeAreaView, ScrollView, View, Button,
+         FlatList, StyleSheet, Text, TextInput, StatusBar } from 'react-native';
+import ScreenContainer from '../components/ScreenContainer';
+import EditableTask from '../components/EditableTask';
+import styles from '../config/styles';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,6 +32,17 @@ const ReminderList = ({ navigation }) => {
     }
   }
 
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem('@task_list', jsonValue)
+      console.log('just stored '+jsonValue)
+    } catch (e) {
+      console.log("error in storeData ")
+      console.dir(e)
+      // saving error
+    }
+  }
 
   return (
     <ScrollView>
@@ -53,7 +68,7 @@ const ReminderList = ({ navigation }) => {
                 setTaskList(newTaskList)
                 storeData(taskList)
                 navigation.navigate("ReminderList", {
-                  name: "List of All Reminders Screen"
+                  name: "Reminders List"
                 })
               }}
              />

@@ -83,7 +83,6 @@ const CreateReminder = ({ navigation }) => {
     <ScreenContainer>
     <ScrollView>
     <View style={styles.container}>
-      <Text style={styles.headerText}> ToDo List </Text>
       <View>
         <TextInput
           style={{height: 20}}
