@@ -12,7 +12,8 @@ const CreateReminder = ({ navigation }) => {
   const [taskName,setTaskName] = useState("")
   const [dueDate,setDueDate] = useState("")
   const [notificationType,setNotificationType] = useState("")
-  const [notificationTimes,setNotificationTimes] = useState("")
+  const [notificationTimes,setNotificationTimes] = useState([])
+  const [newNotification,setNewNotification] = useState("")
   const [notes,setNotes] = useState("")
   const [taskList,setTaskList]= useState([])
 
@@ -114,14 +115,24 @@ const CreateReminder = ({ navigation }) => {
         />
       </View>
       <View>
+        <Text>{JSON.stringify(notificationTimes)}</Text>
         <TextInput
           style={{height: 20}}
-          placeholder="Enter notification times"
+          placeholder="Enter notification times (hh:mm) 24 hour time"
           onChangeText={text => {
-               setNotificationTimes(text);
+               setNewNotification(text);
              }}
-          value = {notificationTimes}
+          value = {newNotification}
         />
+        <Button
+           title={"add"}
+           color="blue"
+           onPress = {() => {
+             const newNotificationTimes = notificationTimes.concat(newNotification)
+             setNotificationTimes(newNotificationTimes)
+             setNewNotification("");
+           }}
+           />
       </View>
       <View>
         <TextInput
@@ -151,7 +162,7 @@ const CreateReminder = ({ navigation }) => {
              setTaskName("")
              setDueDate("")
              setNotificationType("")
-             setNotificationTimes("")
+             setNotificationTimes([])
              setNotes("")
            }}
            />

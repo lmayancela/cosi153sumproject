@@ -32,6 +32,17 @@ const ReminderList = ({ navigation }) => {
     }
   }
 
+  const clearAll = async () => {
+        try {
+          console.log('in clearData')
+          await AsyncStorage.clear()
+        } catch(e) {
+          console.log("error in clearData ")
+          console.dir(e)
+          // clear error
+        }
+  }
+
   const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
@@ -46,6 +57,12 @@ const ReminderList = ({ navigation }) => {
 
   return (
     <ScrollView>
+    <Button
+      title="clear all data"
+      onPress={() => {
+        clearAll()
+      }}
+    />
       <FlatList
         data={taskList}
         renderItem={({ item, index }) => (

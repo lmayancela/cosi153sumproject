@@ -10,6 +10,7 @@ const EditableTask = (props) => {
     const [dueDate, setDueDate] = useState(props.object.dueDate); //blank date?
     const [notificationType, setNotificationType] = useState(props.object.notificationType); //keeping this as general rather than per task for now
     const [notificationTimes, setNotificationTimes] = useState(props.object.notificationTimes);
+    const [newNotificationTime, setNewNotificationTime] = useState(props.object.newNotification);
     const [taskName, setTaskName] = useState(props.object.notificationType);
     const [notes, setNotes] = useState(props.object.notes);
     const [reactionText, setReactionText] = useState("");
@@ -114,17 +115,31 @@ const EditableTask = (props) => {
         />
       </View>
       <View style={styles.rowContainer}>
-        <Text>Notification Times</Text>
+        <Text>Notification Times:  </Text>
+        <Text style={styles.textinput}>{JSON.stringify(props.object.notificationTimes)}</Text>
+      </View>
+      <View style={styles.rowContainer}>
+        <Text>New Notification Time:  </Text>
         <TextInput
           style={styles.textinput}
-          placeholder={props.object.notificationTimes}
+          placeholder={props.object.newNotificationTime}
           onChangeText={text => {
-            setNotificationTimes(text)
+            setNewNotificationTime(text)
             // NOTE: props.taskList[props.index].notificationTimes = notificationTimes;
             // NOTE: storeData(props.taskList)
           }}
-          value={notificationTimes}
+          value={newNotificationTime}
         />
+        <Button
+           title={"add"}
+           color="blue"
+           onPress = {() => {
+             const newNotificationTimes = props.taskList[props.index].notificationTimes.concat(newNotificationTime)
+             setNotificationTimes(newNotificationTimes)
+             props.taskList[props.index].notificationTimes = newNotificationTimes
+             setNewNotificationTime("");
+           }}
+          />
       </View>
       <View style={styles.rowContainer}>
         <Text>Notes:</Text>
