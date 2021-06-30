@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Platform, Text, View, ActivityIndicator } from 'react-native';
+import { Platform, Text, View, ActivityIndicator, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
@@ -59,6 +59,7 @@ const App = () => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const [users, setUsers] = useState([])
 
   // authentication vars
   const initialLoginState = {
@@ -103,10 +104,43 @@ const App = () => {
   //create the loginReducer
   const [loginState, dispatch] = React.useReducer(loginReducer, initialLoginState);
 
+  // get all users
+  const getUsers = async () => {
+    try {
+        console.log("try to get users");
+        const jsonValue = await AsyncStorage.getItem('@users')
+        let data = null
+        if (jsonValue!=null) {
+          data = JSON.parse(jsonValue)
+          console.log('just get users!')
+          setUsers(data)
+        } else {
+          console.log('just read a null value from Storage')
+        }
+      } catch(e) {
+        console.log("error in getData ")
+        console.log(e)
+        console.dir(e)
+      }
+  }
+
   //create authContext
   const authContext = React.useMemo(() => ({
-    signIn: async(foundUser) => {
-      const userToken = String(foundUser[0].userToken);
+    signIn: async(newUser) => {
+      getUsers()
+      //console.log(users)
+      //console.log(newUser)
+      const foundUser = users.filter( item => {
+          return newUser.username == item.username && newUser.password == item.password;
+      } );
+
+      if ( foundUser.length == 0 ) {
+          Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+              {text: 'Okay'}
+          ]);
+          return;
+      }
+      const userToken = String(foundUser[0].username + "token");
       const userName = foundUser[0].username;
 
       try {
@@ -125,11 +159,33 @@ const App = () => {
       }
       dispatch({ type: 'LOGOUT' });
     },
-    signUp: () => {
-      //TODO: need to send user data to server and get a token
-    },
-    toggleTheme: () => {
-      setIsDarkTheme( isDarkTheme => !isDarkTheme );
+    signUp: async(newUser) => {
+      const userToken = newUser.username + "token";
+      const userName = newUser.username;
+
+      try {
+        await AsyncStorage.setItem('userToken', userToken);
+      } catch(e) {
+        console.log(e);
+      }
+
+      getUsers();
+      users.push(newUser)
+       // save new user list
+       try {
+           const jsonValue = JSON.stringify(users)
+           await AsyncStorage.setItem('@users', jsonValue)
+           console.log('just stored '+jsonValue)
+           Alert.alert('Successfully Signed Up!', 'You are logged in!', [
+               {text: 'Okay'}
+           ]);
+       } catch (e) {
+           console.log("error in storeData ")
+           console.dir(e)
+           // saving error
+       }
+      // console.log('user token: ', userToken);
+      dispatch({ type: 'REGISTER', id: userName, token: userToken });
     }
   }), []);
 
