@@ -13,32 +13,56 @@ const ReminderList = ({ navigation }) => {
 
   const getData = async () => {
     try {
-      // the '@profile_info' can be any string
-      //it feels weird that I rpeat this btwee this page and the task page??
-      //maybe I can use this one component to have a task page with blank values on the form page...
-      const jsonValue = await AsyncStorage.getItem('@task_list')
+      const jsonValue = await AsyncStorage.getItem('@task_list') //it feels weird that I rpeat this btwee this page and the task page??
       let data = null
       if (jsonValue != null) {
         data = JSON.parse(jsonValue)
         setTaskList(data)
         console.log('just set task list')
       } else {
-        //wait why is the if a list and the else is individual items
         console.log('just read a null value from Storage')
-        //setInfo({})
-        //setName("")
-        //setEmail("")
       }
     } catch (e) {
       console.log("error in getData ")
-      console.dir(e)
-      // error reading value
+      console.dir(e)  // error reading value
     }
   }
 
 
   return (
-    <Text> {JSON.stringify(taskList)}</Text>
+    <ScrollView>
+      <FlatList
+        data={taskList}
+        renderItem={({ item, index }) => (
+          <View>
+            {/*<Text>{JSON.stringify(index)}</Text>
+            <Text>type of index: {(typeof {index})}</Text>
+            <Text>item: {JSON.stringify({item}.item)}</Text*/}
+            <EditableTask object={{item}.item} index={parseInt(JSON.stringify(index))} taskList={taskList}/>
+            <Button
+              title="save changes"
+              onPress={() => {
+                storeData(taskList)
+              }}
+            />
+            <Button
+              title="delete"
+              onPress={() => {
+                const newTaskList = taskList;
+                newTaskList.splice(index,1)
+                setTaskList(newTaskList)
+                storeData(taskList)
+                navigation.navigate("ReminderList", {
+                  name: "List of All Reminders Screen"
+                })
+              }}
+             />
+          </View>
+       )}
+      keyExtractor={item => item.id}
+      />
+      {/*<Text> {JSON.stringify(taskList)}</Text>*/}
+    </ScrollView>
   );
 }
 

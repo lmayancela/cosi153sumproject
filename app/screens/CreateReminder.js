@@ -157,7 +157,7 @@ const CreateReminder = ({ navigation }) => {
            }}
            />
       </View>
-      <FlatList
+      <FlatList //TRY PARDE INT OR CHECK TYOE FOR INDEX
         data={taskList}
         renderItem={renderTodoItem}
         keyExtractor={item => item.date}
