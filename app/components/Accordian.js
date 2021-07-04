@@ -107,8 +107,8 @@ export default class Accordian extends Component{
                      title={"add"}
                      color="blue"
                      onPress = {() => {
-                       const newNotificationTimes = this.state.taskList[this.state.index].notificationTimes.concat(newNotificationTime)
-                       this.setState({notificationTimes: text});
+                       const newNotificationTimes = this.state.taskList[this.state.index].notificationTimes.concat(this.state.newNotificationTime)
+                       this.setState({notificationTimes: newNotificationTimes});
                        this.state.taskList[this.state.index].notificationTimes = newNotificationTimes
                        this.setState({newNotificationTime:""});
                      }}
@@ -150,13 +150,10 @@ export default class Accordian extends Component{
               <Button
                 title="delete"
                 onPress={() => {
-                  const newTaskList = taskList;
+                  const newTaskList = this.state.taskList;
                   newTaskList.splice(this.state.index,1)
-                  setTaskList(newTaskList)
-                  storeData(taskList)
-                  navigation.navigate("ReminderList", {
-                    name: "Reminders List"
-                  })
+                  this.setState({taskList : newTaskList})
+                  this.storeData(this.state.taskList)
                 }}
                />
                </View>

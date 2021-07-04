@@ -80,7 +80,10 @@ const ReminderList = ({ navigation }) => {
         title="clear all data"
         onPress={() => {
           clearAll()
-        }}
+          navigation.navigate("ReminderList", {
+          name: "Reminders List"
+        })
+      }}
       />
       <View style={styles.container}>
         { renderAccordians() }
