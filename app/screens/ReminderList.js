@@ -14,6 +14,8 @@ const ReminderList = ({ navigation }) => {
   const [reminderListText, setReminderListText] = useState([])  //unused?
   const [taskListIndex, setTaskListIndex] = useState(0)         //unused?
 
+  const [dbApiKey, setDbApiKey] = useState("");
+
   useEffect(() => { getData() }, [])
 
   const getData = async () => {
@@ -94,6 +96,36 @@ const ReminderList = ({ navigation }) => {
         )}
         keyExtractor={item => item.id}
       />
+      <View>
+        <TextInput
+            style={styles.textinput}
+            placeholder="API Key for database"
+            onChangeText={text => {
+              setDbApiKey(text)
+            }}
+            value={dbApiKey}
+          />
+        <Button
+          title="Store in cloud (Not encrypted!)"
+          onPress={() => {
+            console.log(dbApiKey,JSON.stringify(taskList))
+            fetch('https://calm-shelf-59268.herokuapp.com/storeData/'+dbApiKey+'/'+JSON.stringify(taskList), {  
+              method: 'GET',  
+            });
+          }}
+        />
+        <Button
+          title="Retreive from cloud"
+          onPress={async () => {
+            return fetch('https://calm-shelf-59268.herokuapp.com/getData/' + dbApiKey)
+            .then((response) => {console.log("no. 1" + response);return response.json()})
+            .then((response) => {console.log("no.2",response);return setTaskList(response)})
+            .catch((error) => {
+              console.log(error)
+            })
+          }}
+        />
+      </View>
       {/*<Text> {JSON.stringify(taskList)}</Text>*/}
     </ScrollView>
   );
