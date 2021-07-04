@@ -24,7 +24,9 @@ Notifications.setNotificationHandler({
 // Top-level push notification registry checker
 async function registerForPushNotificationsAsync() {
   let token;
-  if (Constants.isDevice) {
+  console.log(Constants.platform)
+  let deviceType = Object.keys(Constants.platform)[0]
+  if (deviceType == 'android' || deviceType == 'ios') {
     const { status: existingStatus } = await Notifications.getPermissionsAsync();
     let finalStatus = existingStatus;
     if (existingStatus !== 'granted') {
@@ -38,7 +40,7 @@ async function registerForPushNotificationsAsync() {
     token = (await Notifications.getExpoPushTokenAsync()).data;
     console.log(`Got token: ${token}`);
   } else {
-    alert('Push Notifications requires a physical device (like a phone)');
+    alert('Expo Push Notifications requires a physical device (like a phone).');
   }
 
   if (Platform.OS === 'android') {
