@@ -1,11 +1,10 @@
 //CreateReminder screen
-
 import React, { useState, useEffect } from "react";
 import { SafeAreaView, ScrollView, View, Button,
          FlatList, StyleSheet, Text, TextInput, StatusBar } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScreenContainer from '../components/ScreenContainer';
-import styles from '../config/styles';
+// import styles from '../config/styles';
 
 const CreateReminder = ({ navigation }) => {
   const [reactionText, setReactionText] = useState("");
@@ -86,7 +85,7 @@ const CreateReminder = ({ navigation }) => {
     <View style={styles.container}>
       <View>
         <TextInput
-          style={{height: 20}}
+          style={styles.input}
           placeholder="Enter todo item here"
           onChangeText={text => {
                setTaskName(text);
@@ -96,7 +95,7 @@ const CreateReminder = ({ navigation }) => {
       </View>
       <View>
         <TextInput
-          style={{height: 20}}
+          style={styles.input}
           placeholder="Enter due date"
           onChangeText={text => {
                setDueDate(text);
@@ -106,7 +105,7 @@ const CreateReminder = ({ navigation }) => {
       </View>
       <View>
         <TextInput
-          style={{height: 20}}
+          style={styles.input}
           placeholder="Enter notification type"
           onChangeText={text => {
                setNotificationType(text);
@@ -115,9 +114,9 @@ const CreateReminder = ({ navigation }) => {
         />
       </View>
       <View>
-        <Text>{JSON.stringify(notificationTimes)}</Text>
+        <Text>Notification Times: {JSON.stringify(notificationTimes)}</Text>
         <TextInput
-          style={{height: 20}}
+          style={styles.input}
           placeholder="Enter notification times (hh:mm) 24 hour time"
           onChangeText={text => {
                setNewNotification(text);
@@ -136,7 +135,7 @@ const CreateReminder = ({ navigation }) => {
       </View>
       <View>
         <TextInput
-          style={{height: 20}}
+          style={styles.input}
           placeholder="Enter notes"
           onChangeText={text => {
                setNotes(text);
@@ -178,5 +177,16 @@ const CreateReminder = ({ navigation }) => {
   );
 }
 
+
+const styles = StyleSheet.create({
+  input: {
+    backgroundColor: '#f9f9f9',
+    borderColor: '#f0f0f0',
+    borderWidth: StyleSheet.hairlineWidth,
+    height: 40,
+    margin: 10,
+    padding: 10,
+  },
+})
 
 export default CreateReminder;

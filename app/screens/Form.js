@@ -21,9 +21,15 @@ const Form = (props) => {
   // holds the task just in case i guess
   var task
 
-  console.log(Platform.OS)
-
+  
   const buttonColor = '#00FF00';
+
+  useEffect(() => {
+    console.log(Platform.OS)
+    return () => {
+      // cleanup
+    }
+  }, [])
 
   return (
     <ScreenContainer>
@@ -35,7 +41,7 @@ const Form = (props) => {
             <Text>Enter your name:</Text>
             <TextInput
               style={styles.textinput}
-              onChangeText={text => { setUsername(text) }}
+              onChangeText={setUsername}
               value={username} //tbh dont know the purpose of this line
             />
           </View>
@@ -43,38 +49,35 @@ const Form = (props) => {
             <Text>What is the task you want to complete?</Text>
             <TextInput
               style={styles.textinput}
-              onChangeText={text => { setTaskName(text) }}
+              onChangeText={setTaskName}
             />
           </View>
           <View style={styles.rowContainer}>
             <Text>When should your task be done by?</Text>
             <TextInput
               style={styles.textinput}
-              onChangeText={text => { setTaskDueDate(text) }}
+              onChangeText={setTaskDueDate}
             />
           </View>
           <View style={styles.rowContainer}>
             <Text>How would you like to be notified?</Text>
             <TextInput
               style={styles.textinput}
-              onChangeText={text => { setNotificationType(text) }}
-              value={null} //tbh dont know the purpose of this line //NR: added null just to avoid compilation errors
+              onChangeText={setNotificationType}
             />
           </View>
           <View style={styles.rowContainer}>
             <Text>How often would you like to be notified?</Text>
             <TextInput
               style={styles.textinput}
-              onChangeText={text => { setNotificationFrequency(text) }}
-              value={null} //ditto above
+              onChangeText={setNotificationFrequency}
             />
           </View>
           <View style={styles.rowContainer}>
             <Text>(Optional) Notes about your task:</Text>
             <TextInput
               style={styles.textinput}
-              onChangeText={text => { setTaskNotes(text) }}
-              value={null} //ditto above
+              onChangeText={setTaskNotes}
             />
           </View>
 
@@ -107,7 +110,7 @@ const Form = (props) => {
         />
       </View>
     </ScreenContainer>
-  )}
-
+  )
+}
 
 export default Form;

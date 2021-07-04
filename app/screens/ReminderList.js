@@ -1,10 +1,11 @@
 //ReminderList component
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, ScrollView, View, Button,
-         FlatList, StyleSheet, Text, TextInput, StatusBar } from 'react-native';
+import {
+  SafeAreaView, ScrollView, View, Button,
+  FlatList, StyleSheet, Text, TextInput, StatusBar
+} from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 import EditableTask from '../components/EditableTask';
-import styles from '../config/styles';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -33,21 +34,21 @@ const ReminderList = ({ navigation }) => {
   }
 
   const clearAll = async () => {
-        try {
-          console.log('in clearData')
-          await AsyncStorage.clear()
-        } catch(e) {
-          console.log("error in clearData ")
-          console.dir(e)
-          // clear error
-        }
+    try {
+      console.log('in clearData')
+      await AsyncStorage.clear()
+    } catch (e) {
+      console.log("error in clearData ")
+      console.dir(e)
+      // clear error
+    }
   }
 
   const storeData = async (value) => {
     try {
       const jsonValue = JSON.stringify(value)
       await AsyncStorage.setItem('@task_list', jsonValue)
-      console.log('just stored '+jsonValue)
+      console.log('just stored ' + jsonValue)
     } catch (e) {
       console.log("error in storeData ")
       console.dir(e)
@@ -57,12 +58,12 @@ const ReminderList = ({ navigation }) => {
 
   return (
     <ScrollView>
-    <Button
-      title="clear all data"
-      onPress={() => {
-        clearAll()
-      }}
-    />
+      <Button
+        title="clear all data"
+        onPress={() => {
+          clearAll()
+        }}
+      />
       <FlatList
         data={taskList}
         renderItem={({ item, index }) => (
@@ -70,7 +71,7 @@ const ReminderList = ({ navigation }) => {
             {/*<Text>{JSON.stringify(index)}</Text>
             <Text>type of index: {(typeof {index})}</Text>
             <Text>item: {JSON.stringify({item}.item)}</Text*/}
-            <EditableTask object={{item}.item} index={parseInt(JSON.stringify(index))} taskList={taskList}/>
+            <EditableTask object={{ item }.item} index={parseInt(JSON.stringify(index))} taskList={taskList} />
             <Button
               title="save changes"
               onPress={() => {
@@ -81,22 +82,23 @@ const ReminderList = ({ navigation }) => {
               title="delete"
               onPress={() => {
                 const newTaskList = taskList;
-                newTaskList.splice(index,1)
+                newTaskList.splice(index, 1)
                 setTaskList(newTaskList)
                 storeData(taskList)
                 navigation.navigate("ReminderList", {
                   name: "Reminders List"
                 })
               }}
-             />
+            />
           </View>
-       )}
-      keyExtractor={item => item.id}
+        )}
+        keyExtractor={item => item.id}
       />
       {/*<Text> {JSON.stringify(taskList)}</Text>*/}
     </ScrollView>
   );
 }
+
 
 
 

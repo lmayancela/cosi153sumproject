@@ -5,6 +5,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import SignInNavigator from './SignInNavigator';
 import SignUpNavigator from './SignUpNavigator';
 
+import { SignIn, SignUp } from '../screens/index';
+
 const Tabs = createBottomTabNavigator();
 
 const RootNavigator = () => {
@@ -14,11 +16,11 @@ const RootNavigator = () => {
     <Tabs.Navigator>
       <Tabs.Screen
         name="SignIn"
-        component={SignInNavigator}
+        component={SignIn}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="home"
+              name="key"
               color={tempColor}
               size={size}
             />
@@ -27,15 +29,15 @@ const RootNavigator = () => {
       />
       <Tabs.Screen
         name="SignUp"
-        component={SignUpNavigator}
+        component={SignUp}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="account"
+              name="plus"
               color={tempColor}
               size={size}
             />
-          ),
+          )
         }}
       />
     </Tabs.Navigator>

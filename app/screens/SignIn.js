@@ -1,163 +1,92 @@
 import React from 'react';
 import {
-    View,
-    Text,
-    TouchableOpacity,
-    TextInput,
-    Platform,
-    StyleSheet ,
-    StatusBar,
-    Alert
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  Platform,
+  StyleSheet,
+  StatusBar,
+  Alert
 } from 'react-native';
 import { AuthContext } from '../components/context';
 import Users from '../models/users';
 import ScreenContainer from '../components/ScreenContainer';
 
-const SignInScreen = ({navigation}) => {
+import { signInStyle as styles, themeColor } from '../config/styles'
 
-    const [data, setData] = React.useState({
-        username: '',
-        password: '',
-    });
+const SignInScreen = ({ navigation }) => {
 
-    const { signIn } = React.useContext(AuthContext);
+  const [data, setData] = React.useState({
+    username: '',
+    password: '',
+  });
 
-    const loginHandle = () => {
-        if ( data.username.length == 0 || data.password.length == 0 ) {
-            Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
-                {text: 'Okay'}
-            ]);
-            return;
-        }
-        signIn(data);
+  const { signIn } = React.useContext(AuthContext);
+
+  const loginHandle = () => {
+    if (data.username.length == 0 || data.password.length == 0) {
+      Alert.alert('Wrong Input!', 'Username or password field cannot be empty.', [
+        { text: 'Okay' }
+      ]);
+      return;
     }
+    signIn(data);
+  }
 
-    return (
-      <ScreenContainer>
-      <View style={styles.container}>
+  return (
+    <ScreenContainer>
+      <View style={[styles.container, themeColor.bg3]}>
         <View style={styles.header}>
-            <Text style={styles.text_header}>Welcome to Bother Me!</Text>
+          <Text style={[styles.text_header, themeColor.th2]}>Welcome to Bother Me!</Text>
 
-            <Text style={[styles.text_footer]}>Username</Text>
-            <View style={styles.action}>
-                <TextInput
-                    placeholder="Your Username"
-                    placeholderTextColor="#666666"
-                    style={[styles.textInput]}
-                    autoCapitalize="none"
-                    onChangeText={(val) => setData({
-                        ...data,
-                        username: val
-                    })
-                  }
-                />
-            </View>
+          <Text style={[styles.text_footer,themeColor.th1]}>Username</Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Your Username"
+              placeholderTextColor="#444"
+              style={[styles.textInput, themeColor.th2]}
+              autoCapitalize="none"
+              onChangeText={(val) => setData({
+                ...data,
+                username: val
+              })
+              }
+            />
+          </View>
 
 
-            <Text style={[styles.text_footer,
-            ]}>Password</Text>
-            <View style={styles.action}>
-                <TextInput
-                    placeholder="Your Password"
-                    placeholderTextColor="#666666"
-                    style={[styles.textInput]}
-                    autoCapitalize="none"
-                    onChangeText={(val) => setData({
-                        ...data,
-                        password: val,
-                    })
-                  }
-                />
-            </View>
+          <Text style={[styles.text_footer,themeColor.th1]}>Password</Text>
+          <View style={styles.action}>
+            <TextInput
+              placeholder="Your Password"
+              placeholderTextColor="#444"
+              style={[styles.textInput, themeColor.th2]}
+              autoCapitalize="none"
+              onChangeText={(val) => setData({
+                ...data,
+                password: val,
+              })
+              }
+            />
+          </View>
 
-            <View style={styles.button}>
-                <TouchableOpacity
-                    style={styles.signIn}
-                    onPress={() => {loginHandle( data.username, data.password )}}
-                >
+          <View style={styles.button}>
+            <TouchableOpacity
+              style={styles.signIn}
+              onPress={() => { loginHandle(data.username, data.password) }}
+            >
 
-                    <Text style={[styles.textSign, {
-                        color:'#fff'
-                    }]}>Sign In</Text>
+              <Text style={[styles.textSign, {
+                color: '#fff'
+              }]}>Sign In</Text>
 
-                </TouchableOpacity>
-              </View>
-            </View>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
-      </ScreenContainer>
-    );
+    </ScreenContainer>
+  );
 };
 
 export default SignInScreen;
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#009387'
-    },
-    header: {
-        flex: 1,
-        justifyContent: 'center',
-        paddingHorizontal: 30,
-        paddingBottom: 30
-    },
-    footer: {
-        flex: 1,
-        justifyContent: 'center',
-        backgroundColor: '#fff',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        paddingHorizontal: 20,
-        paddingVertical: 30
-    },
-    text_header: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 30,
-        paddingBottom: 30
-    },
-    text_footer: {
-        justifyContent: 'center',
-        color: '#05375a',
-        fontSize: 18
-    },
-    action: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f2f2f2',
-        paddingBottom: 5
-    },
-    actionError: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#FF0000',
-        paddingBottom: 5
-    },
-    textInput: {
-        flex: 1,
-        marginTop: Platform.OS === 'ios' ? 0 : -12,
-        paddingLeft: 10,
-        color: '#05375a',
-    },
-    errorMsg: {
-        color: '#FF0000',
-        fontSize: 14,
-    },
-    button: {
-        alignItems: 'center',
-        marginTop: 50
-    },
-    signIn: {
-        width: '100%',
-        height: 50,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderRadius: 10
-    },
-    textSign: {
-        fontSize: 18,
-        fontWeight: 'bold'
-    }
-  });

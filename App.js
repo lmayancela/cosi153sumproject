@@ -138,7 +138,7 @@ const App = () => {
       } );
 
       if ( foundUser.length == 0 ) {
-          Alert.alert('Invalid User!', 'Username or password is incorrect.', [
+          alert('Invalid User! Username or password is incorrect.', [
               {text: 'Okay'}
           ]);
           return;
