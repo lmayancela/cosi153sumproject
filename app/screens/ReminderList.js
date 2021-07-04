@@ -4,7 +4,7 @@ import { SafeAreaView, ScrollView, View, Button,
          FlatList, StyleSheet, Text, TextInput, StatusBar } from 'react-native';
 import ScreenContainer from '../components/ScreenContainer';
 import EditableTask from '../components/EditableTask';
-import styles from '../config/styles';
+import Accordian from '../components/Accordian';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -55,49 +55,54 @@ const ReminderList = ({ navigation }) => {
     }
   }
 
+
+    function renderAccordians() {
+      var i = 0;
+      const items = [];
+      for (let i = 0; i<taskList.length; i++) {
+          items.push(
+              <Accordian title = {taskList[i].taskName}
+                  taskList = {taskList}
+                  data = {taskList[i]}
+                 index = {i}
+              />
+          );
+      }
+      return items;
+  }
+
+
+
+
   return (
     <ScrollView>
-    <Button
-      title="clear all data"
-      onPress={() => {
-        clearAll()
-      }}
-    />
-      <FlatList
-        data={taskList}
-        renderItem={({ item, index }) => (
-          <View>
-            {/*<Text>{JSON.stringify(index)}</Text>
-            <Text>type of index: {(typeof {index})}</Text>
-            <Text>item: {JSON.stringify({item}.item)}</Text*/}
-            <EditableTask object={{item}.item} index={parseInt(JSON.stringify(index))} taskList={taskList}/>
-            <Button
-              title="save changes"
-              onPress={() => {
-                storeData(taskList)
-              }}
-            />
-            <Button
-              title="delete"
-              onPress={() => {
-                const newTaskList = taskList;
-                newTaskList.splice(index,1)
-                setTaskList(newTaskList)
-                storeData(taskList)
-                navigation.navigate("ReminderList", {
-                  name: "Reminders List"
-                })
-              }}
-             />
-          </View>
-       )}
-      keyExtractor={item => item.id}
+      <Button
+        title="clear all data"
+        onPress={() => {
+          clearAll()
+        }}
       />
-      {/*<Text> {JSON.stringify(taskList)}</Text>*/}
+      <View style={styles.container}>
+        { renderAccordians() }
+      </View>
+      <Button
+        title="save changes"
+        onPress={() => {
+          setTaskList(taskList) //idk about this here
+          storeData(taskList)
+        }}
+      />
     </ScrollView>
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+   flex:1,
+   paddingTop:100,
+
+  }
+});
 
 
 export default ReminderList;
