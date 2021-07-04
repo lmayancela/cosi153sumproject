@@ -10,6 +10,7 @@ import RootNavigator from './app/navigation/RootNavigator';
 import { NotifierContext } from './app/contexts/NotifierContext';
 import { Splash } from './app/screens';
 import { AuthContext } from './app/components/context';
+import Clock from './app/components/renderless/Clock';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // #### Notifications ####
@@ -234,10 +235,10 @@ const App = () => {
     );
   }
 
-
   // Add theme prop to NavigationContainer later
   return (
     <AuthContext.Provider value={authContext}>
+    <Clock />
     <NavigationContainer>
       <NotifierContext.Provider
         value={{

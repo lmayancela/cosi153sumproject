@@ -125,7 +125,7 @@ const CreateReminder = ({ navigation }) => {
           value = {newNotification}
         />
         <Button
-           title={"add"}
+           title={"add notification time"}
            color="blue"
            onPress = {() => {
              const newNotificationTimes = notificationTimes.concat(newNotification)
@@ -146,7 +146,7 @@ const CreateReminder = ({ navigation }) => {
       </View>
       <View>
         <Button
-           title={"add"}
+           title={"add reminder"}
            color="blue"
            onPress = {() => {
              const newTaskList =
